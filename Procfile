@@ -1,0 +1,1 @@
+web: gunicorn fantastic_news.wsgi
