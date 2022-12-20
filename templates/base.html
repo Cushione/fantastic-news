@@ -1,0 +1,39 @@
+{% load compress %}
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Fantastic News</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/bff7419e74.js" crossorigin="anonymous"></script>
+    <script src="{% static 'js/bootstrap/bootstrap.bundle.min.js' %}">
+    </script>
+    {% compress css %}
+    <link type="text/x-scss" rel="stylesheet" href="{% static 'css/style.scss' %}">
+    {% endcompress %}
+
+</head>
+
+<body class="d-flex flex-column">
+
+    <!-- Header -->
+    {% include "header.html" %}
+    
+
+    <main class="flex-shrink-0">
+        {% block content %}
+        <!-- Content Goes here -->
+        {% endblock content %}
+    </main>
+
+    <!-- Footer -->
+    {% include "footer.html" %}
+</body>
+
+</html>
