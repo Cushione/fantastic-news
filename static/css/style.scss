@@ -27,3 +27,34 @@ $primary: #2FE0A2;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+.main-article-card {
+    text-decoration: none;
+    height: 350px;
+
+    &:hover {
+        background-color: $light;
+    }
+
+    .card-title {
+        height: 2.5em;
+    }
+}
+
+.article-img {
+    object-fit: cover;
+}
+
+@media screen and (min-width: 992px) {
+    .main-article-card {
+        height: 180px;
+    }
+
+    .h-lg-100 {
+        height: 100% !important;
+    }
+
+    .h-lg-auto {
+        height: auto !important;
+    }
+}

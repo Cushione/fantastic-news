@@ -1,38 +1,84 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="card mb-4">
+<h2 class="mb-4">Latest News</h2>
+<div class="card">
     <div class="row g-0">
-        <div class="col-5 p-4">
+        <div class="col-7 p-4">
             <div class="card-body d-flex flex-column h-100">
-                <h2 class="card-title fw-bold">{{latest_article.title}}</h2>
-                <div class="flex-grow-1 w-50 d-flex align-items-center">
-                    <hr class="w-100">
-                </div>
-                <div class="fs-5 card-text">
-                    <span class="text-primary">{{latest_article.location | upper}}</span> -
-                    {{latest_article.content  | safe | striptags |truncatechars_html:100}}
-                </div>
-                <div class="card-text mt-4 d-flex justify-content-between small text-secondary">
-                    <span>{{latest_article.published_on}}</span>
-                    <div>
-                        {% if latest_article.number_of_likes > 0 %}
-                        <span><i class="fa-solid fa-heart"></i> {{latest_article.number_of_likes}}</span>
-                        {% endif %}
-                        {% if latest_article.number_of_comments > 0 %}
-                        <span><i class="fa-solid fa-message"></i> {{latest_article.number_of_likes}}</span>
-                        {% endif %}
+                <h4 class="card-title fw-bold">{{latest_article.title}}</h4>
+                    <div class="flex-grow-1 w-50 d-flex align-items-center">
+                        <hr class="w-100">
                     </div>
-                </div>
+                    <div class="fs-6 card-text">
+                        <span class="text-primary">{{latest_article.location | upper}}</span> -
+                        {{latest_article.content  | safe | striptags |truncatechars_html:150}}
+                    </div>
+                    <div class="card-text mt-4 d-flex justify-content-between small text-secondary">
+                        <span>{{latest_article.published_on}}</span>
+                        <div>
+                            {% if latest_article.number_of_likes > 0 %}
+                            <span><i class="fa-solid fa-heart"></i> {{latest_article.number_of_likes}}</span>
+                            {% endif %}
+                            {% if latest_article.number_of_comments > 0 %}
+                            <span class="mx-3"><i class="fa-solid fa-message"></i> {{latest_article.number_of_comments}}</span>
+                            {% endif %}
+                        </div>
+                    </div>
             </div>
         </div>
-        <div class="col-7">
+        <div class="col-5">
             {% if "placeholder" in latest_article.featured_image.url %}
-            <img src="https://codeinstitute.s3.amazonaws.com/fullstack/blog/default.jpg" class="img-fluid rounded-end">
+            <img src="https://codeinstitute.s3.amazonaws.com/fullstack/blog/default.jpg"
+                class="img-fluid rounded-end h-100 article-img">
             {% else %}
-            <img src=" {{ latest_article.featured_image.url }}" class="img-fluid rounded-end">
+            <img src=" {{ latest_article.featured_image.url }}" class="img-fluid rounded-end h-100 article-img">
             {% endif %}
         </div>
     </div>
 </div>
+
+<hr class="my-5">
+
+<h2 class="mb-4">Trending</h2>
+
+<div class="row mt-5">
+    <div class="col-12 col-lg-8">
+        {% for article in main_article_list %}
+        <a href="#" class="card border-0 link-dark main-article-card">
+            <div class="row g-0 h-100 flex-column flex-lg-row flex-nowrap">
+                <div class="col-12 col-lg-4 h-50 h-lg-100 flex-grow-1">
+                    {% if "placeholder" in article.featured_image.url %}
+                    <img class="img-fluid rounded w-100 mh-100 h-100 article-img"
+                        src="https://codeinstitute.s3.amazonaws.com/fullstack/blog/default.jpg">
+                    {% else %}
+                    <img class="img-fluid rounded w-100 mh-100 h-100 article-img" src=" {{ article.featured_image.url }}">
+                    {% endif %}
+                </div>
+
+                <div class="col-12 col-lg-8">
+                    <div class="card-body d-flex flex-column h-100">
+                        <h3 class="card-title flex-grow-1 h-lg-auto">{{ article.title }}</h3>
+                        <div class="card-text mt-2 d-flex justify-content-between small text-secondary">
+                            <span>{{article.published_on}}</span>
+                            <div>
+                                {% if article.number_of_likes > 0 %}
+                                <span><i class="fa-solid fa-heart"></i> {{article.number_of_likes}}</span>
+                                {% endif %}
+                                {% if article.number_of_comments > 0 %}
+                                <span class="mx-3"><i class="fa-solid fa-message"></i> {{article.number_of_comments}}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+        {% if not forloop.last %}
+        <hr class="my-4"/>
+        {% endif %}
+    {% endfor %}
+</div>
+</div>
+
 {%endblock%}
