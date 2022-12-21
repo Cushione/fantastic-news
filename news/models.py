@@ -10,6 +10,7 @@ class Article(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="news_articles")
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
+    published_on = models.DateTimeField(blank=True, null=True)
     content = models.TextField()
     featured_image = CloudinaryField('image', default='placeholder')
     location = models.CharField(max_length=200)
