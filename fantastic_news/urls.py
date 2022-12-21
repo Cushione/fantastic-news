@@ -21,3 +21,5 @@ urlpatterns = [
     path('', include('member.urls'), name='member_urls'),
     path('', include('news.urls'), name='news_urls')
 ]
+
+handler404 = 'fantastic_news.views.handler404'
