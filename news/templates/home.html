@@ -1,5 +1,38 @@
 {% extends "base.html" %}
 
 {% block content %}
-<p>Home</p>
+<div class="card mb-4">
+    <div class="row g-0">
+        <div class="col-5 p-4">
+            <div class="card-body d-flex flex-column h-100">
+                <h2 class="card-title fw-bold">{{latest_article.title}}</h2>
+                <div class="flex-grow-1 w-50 d-flex align-items-center">
+                    <hr class="w-100">
+                </div>
+                <div class="fs-5 card-text">
+                    <span class="text-primary">{{latest_article.location | upper}}</span> -
+                    {{latest_article.content  | safe | striptags |truncatechars_html:100}}
+                </div>
+                <div class="card-text mt-4 d-flex justify-content-between small text-secondary">
+                    <span>{{latest_article.published_on}}</span>
+                    <div>
+                        {% if latest_article.number_of_likes > 0 %}
+                        <span><i class="fa-solid fa-heart"></i> {{latest_article.number_of_likes}}</span>
+                        {% endif %}
+                        {% if latest_article.number_of_comments > 0 %}
+                        <span><i class="fa-solid fa-message"></i> {{latest_article.number_of_likes}}</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-7">
+            {% if "placeholder" in latest_article.featured_image.url %}
+            <img src="https://codeinstitute.s3.amazonaws.com/fullstack/blog/default.jpg" class="img-fluid rounded-end">
+            {% else %}
+            <img src=" {{ latest_article.featured_image.url }}" class="img-fluid rounded-end">
+            {% endif %}
+        </div>
+    </div>
+</div>
 {%endblock%}
