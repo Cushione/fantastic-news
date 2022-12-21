@@ -39,4 +39,4 @@ class Comment(models.Model):
         ordering = ['created_on']
 
     def __str__(self):
-        return f"Comment by {self.author.username}: {self.content[0:100]}"
+        return self.content[0:100]

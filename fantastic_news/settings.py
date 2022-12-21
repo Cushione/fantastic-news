@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django_sass_compiler',
     'crispy_forms',
     "crispy_bootstrap5",
+    'django_summernote',
     'member',
     'news',
 ]
