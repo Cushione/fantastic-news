@@ -30,7 +30,6 @@ $pagination-color: rgb(108,117,125);
 }
 
 .main-article-card {
-    text-decoration: none;
     height: 350px;
 
     &:hover {
@@ -43,6 +42,11 @@ $pagination-color: rgb(108,117,125);
 }
 
 .article-img {
+    object-fit: cover;
+}
+
+.article-detail-img {
+    height: 40vmax;
     object-fit: cover;
 }
 

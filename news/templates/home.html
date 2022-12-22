@@ -3,7 +3,7 @@
 {% block content %}
 {% if main_article_list.number == 1 %}
 <h2 class="mb-4">Latest News</h2>
-<div class="card">
+<a href="{% url 'news:article_detail' latest_article.slug %}" class="card link-dark text-decoration-none">
     <div class="row g-0">
         <div class="col-7 p-4">
             <div class="card-body d-flex flex-column h-100">
@@ -38,7 +38,7 @@
             {% endif %}
         </div>
     </div>
-</div>
+</a>
 
 <hr class="my-5">
 {% endif %}
@@ -48,7 +48,7 @@
 <div class="row mt-5">
     <div class="col-12 col-lg-8">
         {% for article in main_article_list %}
-        <a href="#" class="card border-0 link-dark main-article-card">
+        <a href="{% url 'news:article_detail' article.slug %}" class="card border-0 link-dark main-article-card text-decoration-none">
             <div class="row g-0 h-100 flex-column flex-lg-row flex-nowrap">
                 <div class="col-12 col-lg-4 h-50 h-lg-100 flex-grow-1">
                     {% if "placeholder" in article.featured_image.url %}

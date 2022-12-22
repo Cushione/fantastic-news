@@ -1,6 +1,6 @@
 from django.core.paginator import Paginator
-from django.shortcuts import render
-from django.views import generic
+from django.shortcuts import render, get_object_or_404
+from django.views import View
 from .models import Article
 
 def Home(request):
@@ -17,4 +17,22 @@ def Home(request):
 			'latest_article': latest_article,
 			'main_article_list': main_article_list
 			}
+		)
+
+class ArticleDetail(View):
+
+	def get(self, request, slug, *args, **kwargs):
+		queryset = Article.objects.filter(status=1)
+		article = get_object_or_404(queryset, slug=slug)
+		liked = False
+		if article.likes.filter(id=self.request.user.id).exists():
+			liked = True
+
+		return render(
+			request,
+			"article_detail.html",
+			{
+				"article": article,
+				"liked": liked
+			},
 		)
