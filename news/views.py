@@ -2,6 +2,8 @@ from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.views import View
 from .models import Article
+from .forms import CommentForm
+from django.contrib import messages
 
 def Home(request):
 	queryset = Article.objects.filter(status=1)
@@ -35,9 +37,26 @@ class ArticleDetail(View):
 			{
 				"article": article,
 				"comments": comments,
-				"liked": liked
+				"liked": liked,
+				"comment_form": CommentForm()
 			},
 		)
+
+	def post(self, request, slug, *args, **kwargs):
+		queryset = Article.objects.filter(status=1)
+		article = get_object_or_404(queryset, slug=slug)
+	
+		comment_form = CommentForm(data=request.POST)
+
+		if comment_form.is_valid():
+			comment = comment_form.save(commit=False)
+			comment.author = request.user
+			comment.article = article
+			comment.save()
+		else:
+			messages.error(request, "Invalid comment.")
+
+		return redirect(reverse('news:article_detail', args=[slug]))
 
 class ArticleLike(View):
 	def post(self, request, slug, *args, **kwargs):
