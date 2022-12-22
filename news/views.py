@@ -1,5 +1,5 @@
 from django.core.paginator import Paginator
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.views import View
 from .models import Article
 
@@ -25,7 +25,7 @@ class ArticleDetail(View):
 		queryset = Article.objects.filter(status=1)
 		article = get_object_or_404(queryset, slug=slug)
 		liked = False
-		if article.likes.filter(id=self.request.user.id).exists():
+		if article.likes.filter(id=request.user.id).exists():
 			liked = True
 
 		return render(
@@ -36,3 +36,14 @@ class ArticleDetail(View):
 				"liked": liked
 			},
 		)
+
+class ArticleLike(View):
+	def post(self, request, slug, *args, **kwargs):
+		article = get_object_or_404(Article, slug=slug)
+
+		if article.likes.filter(id=request.user.id).exists():
+			article.likes.remove(request.user)
+		else:
+			article.likes.add(request.user)
+
+		return redirect(reverse('news:article_detail', args=[slug]))
