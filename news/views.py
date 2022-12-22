@@ -24,6 +24,7 @@ class ArticleDetail(View):
 	def get(self, request, slug, *args, **kwargs):
 		queryset = Article.objects.filter(status=1)
 		article = get_object_or_404(queryset, slug=slug)
+		comments = article.comments.all()
 		liked = False
 		if article.likes.filter(id=request.user.id).exists():
 			liked = True
@@ -33,6 +34,7 @@ class ArticleDetail(View):
 			"article_detail.html",
 			{
 				"article": article,
+				"comments": comments,
 				"liked": liked
 			},
 		)
