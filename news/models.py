@@ -18,7 +18,7 @@ class Article(models.Model):
     likes = models.ManyToManyField(User, related_name='article_likes', blank=True)
 
     class Meta:
-        ordering = ['-created_on']
+        ordering = ['-published_on']
 
     def __str__(self):
         return self.title
