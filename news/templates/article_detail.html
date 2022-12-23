@@ -65,7 +65,7 @@
         </form>
         {% endif %}
         {% for comment in comments %}
-        <div class="card mb-3" id="comment-{{comment.id}}">
+        <div class="card mb-3 {% if comment.deleted %}bg-light bg-gradient{% endif %}" id="comment-{{comment.id}}">
             <div class="card-body">
                 <h5 class="card-title fs-6">
                     {{comment.author}}
