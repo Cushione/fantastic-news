@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
 <div class="row">
     <div class="col-12 col-lg-8">
@@ -65,14 +65,36 @@
         </form>
         {% endif %}
         {% for comment in comments %}
-        <div class="card mb-3">
+        <div class="card mb-3" id="comment-{{comment.id}}">
             <div class="card-body">
-                <h5 class="card-title fs-6">{{comment.author}}</h5>
+                <h5 class="card-title fs-6">
+                    {{comment.author}}
+                    {% if not comment.deleted and user.is_authenticated and user.id == comment.author.id %}
+                    <span class="float-end action-buttons">
+                        <button class="btn btn-light btn-sm">
+                            <i class="fa-regular fa-pen-to-square"></i>
+                        </button>
+                        <button class="btn btn-light btn-sm" onclick="deleteComment({{comment.id}})">
+                            <i class="fa-regular fa-trash-can"></i>
+                        </button>
+                    </span>
+                    {% endif %}
+                </h5>
                 <h6 class="card-subtitle mb-2 text-secondary small">{{comment.created_on}}</h6>
-                <p class="card-text">{{comment.content}}</p>
+                <p class="card-text comment-content">
+                    {% if comment.deleted %}
+                    This comment was deleted.
+                    {% else %}
+                    {{comment.content}}
+                    {% endif %}
+                </p>
             </div>
         </div>
         {% endfor %}
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/article_detail.js' %}"></script>
 {% endblock %}

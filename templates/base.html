@@ -11,8 +11,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;700&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/bff7419e74.js" crossorigin="anonymous"></script>
-    <script src="{% static 'js/bootstrap/bootstrap.bundle.min.js' %}">
-    </script>
+    <script src="{% static 'js/bootstrap/bootstrap.bundle.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
     <link rel="stylesheet" href="{% static 'css/style.min.css' %}">
 
 </head>
@@ -31,6 +31,10 @@
 
     <!-- Footer -->
     {% include "footer.html" %}
+
+    {% block scripts %}
+    <!-- JavaScript Goes here -->
+    {% endblock scripts%}
 </body>
 
 </html>

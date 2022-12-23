@@ -1,9 +1,10 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.views import View
-from .models import Article
+from .models import Article, Comment
 from .forms import CommentForm
 from django.contrib import messages
+from django.http import HttpResponse
 
 def Home(request):
 	queryset = Article.objects.filter(status=1)
@@ -58,6 +59,7 @@ class ArticleDetail(View):
 
 		return redirect(reverse('news:article_detail', args=[slug]))
 
+
 class ArticleLike(View):
 	def post(self, request, slug, *args, **kwargs):
 		article = get_object_or_404(Article, slug=slug)
@@ -68,3 +70,12 @@ class ArticleLike(View):
 			article.likes.add(request.user)
 
 		return redirect(reverse('news:article_detail', args=[slug]))
+
+
+class ArticleComments(View):
+	def delete(self, request, comment_id, *args, **kwargs):
+		comment = get_object_or_404(Comment, id=comment_id)
+		comment.deleted = True
+		comment.save()
+		return HttpResponse()
+

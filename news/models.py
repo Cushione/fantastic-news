@@ -27,7 +27,7 @@ class Article(models.Model):
         return self.likes.count()
 
     def number_of_comments(self):
-        return self.comments.count()
+        return self.comments.filter(deleted=False).count()
 
 class Comment(models.Model):
     article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name="comments")
@@ -35,6 +35,7 @@ class Comment(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     content = models.TextField(max_length=1000)
+    deleted = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['created_on']
