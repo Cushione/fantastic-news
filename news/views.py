@@ -4,11 +4,13 @@ from django.views import View
 from .models import Article, Comment
 from .forms import CommentForm
 from django.contrib import messages
-from django.http import HttpResponse, QueryDict, HttpResponseBadRequest
+from django.http import HttpResponse, QueryDict, HttpResponseBadRequest, HttpResponseServerError
 
 def Home(request):
 	queryset = Article.objects.filter(status=1)
-	latest_article = queryset.latest('published_on')
+	if not queryset.exists():
+		return HttpResponseServerError()
+	latest_article = queryset.latest()
 	article_list = queryset.exclude(id=latest_article.id)
 	paginator = Paginator(article_list, 4)
 	page_number = request.GET.get('page')

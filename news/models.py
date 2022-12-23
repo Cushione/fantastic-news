@@ -19,6 +19,7 @@ class Article(models.Model):
 
     class Meta:
         ordering = ['-published_on']
+        get_latest_by = 'published_on'
 
     def __str__(self):
         return self.title
