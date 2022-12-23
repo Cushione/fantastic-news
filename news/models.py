@@ -38,7 +38,7 @@ class Comment(models.Model):
     deleted = models.BooleanField(default=False)
 
     class Meta:
-        ordering = ['created_on']
+        ordering = ['-created_on']
 
     def __str__(self):
         return self.content[0:100]

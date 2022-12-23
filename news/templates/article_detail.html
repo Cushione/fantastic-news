@@ -71,10 +71,10 @@
                     {{comment.author}}
                     {% if not comment.deleted and user.is_authenticated and user.id == comment.author.id %}
                     <span class="float-end action-buttons">
-                        <button class="btn btn-light btn-sm">
+                        <button class="btn btn-light btn-sm comment-edit-btn" onclick="toggleEditForm({{comment.id}})">
                             <i class="fa-regular fa-pen-to-square"></i>
                         </button>
-                        <button class="btn btn-light btn-sm" onclick="deleteComment({{comment.id}})">
+                        <button class="btn btn-light btn-sm comment-delete-btn" onclick="deleteComment({{comment.id}})">
                             <i class="fa-regular fa-trash-can"></i>
                         </button>
                     </span>

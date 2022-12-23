@@ -4,7 +4,7 @@ from django.views import View
 from .models import Article, Comment
 from .forms import CommentForm
 from django.contrib import messages
-from django.http import HttpResponse
+from django.http import HttpResponse, QueryDict, HttpResponseBadRequest
 
 def Home(request):
 	queryset = Article.objects.filter(status=1)
@@ -78,4 +78,14 @@ class ArticleComments(View):
 		comment.deleted = True
 		comment.save()
 		return HttpResponse()
+	
+	def post(self, request, comment_id, *args, **kwargs):
+		comment = get_object_or_404(Comment, id=comment_id)
+		comment_form = CommentForm(data=request.POST)
+
+		if comment_form.is_valid():
+			comment.content = comment_form.cleaned_data.get('content')
+			comment.save()
+			return HttpResponse()
+		return HttpResponseBadRequest()
 
