@@ -2,7 +2,7 @@ from django.test import TestCase
 from .views import Article, Comment
 from django.contrib.auth.models import User
 
-class ArticleTest(TestCase):
+class TestArticleModel(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(username='testuser', password='12345')
         self.article = Article.objects.create(
@@ -38,7 +38,7 @@ class ArticleTest(TestCase):
         article = Article.objects.get(title="Test Article")
         self.assertEqual(str(article), "Test Article")
 
-class CommentTest(TestCase):
+class TestCommentModel(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(username='testuser', password='12345')
         self.article = Article.objects.create(
