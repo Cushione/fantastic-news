@@ -23,6 +23,10 @@ class Article(models.Model):
     class Meta:
         ordering = ['-published_on']
         get_latest_by = 'published_on'
+        permissions = [
+            ("publish", "Can publish article"),
+            ("edit", "Can edit article draft"),
+        ]
 
     def __str__(self):
         return self.title

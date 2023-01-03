@@ -58,7 +58,7 @@
             <a href="{% url 'member:register' %}?next={{request.path}}" class="link-dark">register</a>
             to join the discussion.</p>
         {% else %}
-        <form class="mb-3" method="POST">
+        <form class="mb-3" method="POST" action="{% url 'news:add_article_comment' article.slug %}">
             {% csrf_token %}
             <textarea class="form-control" name="content" placeholder="Leave a comment here" id="comment_box"></textarea>
             <button type="submit" class="btn btn-primary mt-2">Post Comment</button>

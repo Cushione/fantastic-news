@@ -4,7 +4,7 @@ from django.views import View
 from .models import Article, Comment
 from .forms import CommentForm
 from django.contrib import messages
-from django.http import HttpResponse, QueryDict, HttpResponseBadRequest, HttpResponseServerError
+from django.http import HttpResponse, QueryDict, HttpResponseBadRequest, HttpResponseServerError, HttpResponseNotFound
 
 def Home(request):
 	queryset = Article.objects.filter(status=1, type=0)
@@ -49,22 +49,6 @@ class ArticleDetail(View):
 			},
 		)
 
-	def post(self, request, slug, *args, **kwargs):
-		queryset = Article.objects.filter(status=1)
-		article = get_object_or_404(queryset, slug=slug)
-	
-		comment_form = CommentForm(data=request.POST)
-
-		if comment_form.is_valid():
-			comment = comment_form.save(commit=False)
-			comment.author = request.user
-			comment.article = article
-			comment.save()
-		else:
-			messages.error(request, "Invalid comment.")
-
-		return redirect(reverse('news:article_detail', args=[slug]))
-
 
 class ArticleLike(View):
 	def post(self, request, slug, *args, **kwargs):
@@ -84,7 +68,7 @@ class ArticleComments(View):
 		comment.deleted = True
 		comment.save()
 		return HttpResponse()
-	
+		
 	def post(self, request, comment_id, *args, **kwargs):
 		comment = get_object_or_404(Comment, id=comment_id)
 		comment_form = CommentForm(data=request.POST)
@@ -95,3 +79,19 @@ class ArticleComments(View):
 			return HttpResponse()
 		return HttpResponseBadRequest()
 
+class AddArticleComment(View):
+	def post(self, request, slug, *args, **kwargs):
+		queryset = Article.objects.filter(status=1)
+		article = get_object_or_404(queryset, slug=slug)
+	
+		comment_form = CommentForm(data=request.POST)
+
+		if comment_form.is_valid():
+			comment = comment_form.save(commit=False)
+			comment.author = request.user
+			comment.article = article
+			comment.save()
+		else:
+			messages.error(request, "Invalid comment.")
+
+		return redirect(reverse('news:article_detail', args=[slug]))

@@ -2,8 +2,9 @@ from django.contrib import admin
 from .models import Article, Comment
 from django_summernote.admin import SummernoteModelAdmin
 from datetime import datetime
+from django.contrib.auth import get_permission_codename
 
-@admin.action(description='Publish selected articles')
+@admin.action(description='Publish selected articles', permissions=['publish'])
 def publish_articles(self, request, queryset):
     queryset.update(status=1, published_on=datetime.now())
 
@@ -18,6 +19,18 @@ class ArticleAdmin(SummernoteModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
     summernote_fields = ('content')
     actions = [publish_articles]
+
+    def has_publish_permission(self, request):
+        """
+        Checks if the user has the 'publish' permission
+        https://docs.djangoproject.com/en/4.1/ref/contrib/admin/actions/#setting-permissions-for-actions
+        """
+        return request.user.has_perm('%s.publish' % (self.opts.app_label))
+
+    def has_change_permission(self, request, obj=None):
+        if obj is not None and obj.status == 0:
+            return request.user.has_perm('%s.edit' % (self.opts.app_label))
+        return super().has_change_permission(request, obj=obj)
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
