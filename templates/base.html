@@ -21,7 +21,17 @@
 
     <!-- Header -->
     {% include "header.html" %}
-    
+
+    {% if messages %}
+    <div id="message-container">
+        {% for message in messages %}
+        <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message | safe }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
 
     <main class="flex-shrink-0 container my-5">
         {% block content %}
@@ -35,6 +45,16 @@
     {% block scripts %}
     <!-- JavaScript Goes here -->
     {% endblock scripts%}
+
+    <script>
+        setTimeout(function () {
+            const alertList = document.querySelectorAll('.alert')
+            const alerts = [...alertList].map(element => new bootstrap.Alert(element))
+            for (const alert of alerts) {
+                alert.close()
+            }
+        }, 2500);
+    </script>
 </body>
 
 </html>

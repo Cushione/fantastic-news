@@ -29,6 +29,18 @@ $pagination-color: rgb(108, 117, 125);
     white-space: nowrap;
 }
 
+#message-container {
+    position: fixed;
+    top: 5vh;
+    width: 100vw;
+    z-index: 999;
+
+    .alert {
+        margin: 0 auto;
+        width: max-content;
+    }
+}
+
 .main-article-card {
     height: 350px;
 
