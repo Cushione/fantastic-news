@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
 
 STATUS = ((0, "Draft"), (1, "Published"))
+TYPE = ((0, "Main"), (1, "Secondary"))
+
 
 class Article(models.Model):
     title = models.CharField(max_length=300, unique=True)
@@ -16,6 +18,7 @@ class Article(models.Model):
     location = models.CharField(max_length=200)
     status = models.IntegerField(choices=STATUS, default=0)
     likes = models.ManyToManyField(User, related_name='article_likes', blank=True)
+    type = models.IntegerField(choices=TYPE, default=0)
 
     class Meta:
         ordering = ['-published_on']

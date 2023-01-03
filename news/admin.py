@@ -11,7 +11,7 @@ def publish_articles(self, request, queryset):
 class ArticleAdmin(SummernoteModelAdmin):
     list_display = ('title', 'slug', 'location', 'status', 'published_on', 'number_of_likes')
     search_fields = ['title', 'content', 'location']
-    list_filter = ('status', 'created_on', 'location')
+    list_filter = ('status', 'type', 'created_on', 'location')
     date_hierarchy = 'created_on'
     exclude = ('likes',)
     readonly_fields = ('status', 'published_on', 'number_of_likes')

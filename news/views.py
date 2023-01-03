@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.http import HttpResponse, QueryDict, HttpResponseBadRequest, HttpResponseServerError
 
 def Home(request):
-	queryset = Article.objects.filter(status=1)
+	queryset = Article.objects.filter(status=1, type=0)
 	if not queryset.exists():
 		return HttpResponseServerError()
 	latest_article = queryset.latest()
@@ -15,12 +15,16 @@ def Home(request):
 	paginator = Paginator(article_list, 4)
 	page_number = request.GET.get('page')
 	main_article_list = paginator.get_page(page_number)
+
+	secondary_article_list = Article.objects.filter(status=1, type=1)[:5]
+
 	return render(
 		request, 
 		template_name="home.html", 
 		context={
 			'latest_article': latest_article,
-			'main_article_list': main_article_list
+			'main_article_list': main_article_list,
+			'secondary_article_list': secondary_article_list
 			}
 		)
 
