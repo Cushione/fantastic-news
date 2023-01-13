@@ -19,6 +19,7 @@ class Article(models.Model):
     status = models.IntegerField(choices=STATUS, default=0)
     likes = models.ManyToManyField(User, related_name='article_likes', blank=True)
     type = models.IntegerField(choices=TYPE, default=0)
+    original_article = models.URLField(blank=True)
 
     class Meta:
         ordering = ['-published_on']

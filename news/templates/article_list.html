@@ -13,17 +13,19 @@
 
         <div class="col-12 col-lg-8">
             <div class="card-body d-flex flex-column h-100">
-                <h3 class="card-title flex-grow-1 h-lg-auto">{{ article.title }}</h3>
-                <div class="card-text mt-2 d-flex justify-content-between small text-secondary">
-                    <span>{{article.published_on}}</span>
-                    <div>
-                        {% if article.number_of_likes > 0 %}
-                        <span><i class="fa-solid fa-heart"></i> {{article.number_of_likes}}</span>
-                        {% endif %}
-                        {% if article.number_of_comments > 0 %}
-                        <span class="mx-3"><i class="fa-solid fa-message"></i>
-                            {{article.number_of_comments}}</span>
-                        {% endif %}
+                <h3 class="card-title h-lg-auto line-clamp-3">{{ article.title }}</h3>
+                <div class="card-text flex-grow-1 mt-2 d-flex flex-column justify-content-end">
+                    <div class="d-flex justify-content-between small text-secondary">
+                        <span>{{article.published_on}}</span>
+                        <div>
+                            {% if article.number_of_likes > 0 %}
+                            <span><i class="fa-solid fa-heart"></i> {{article.number_of_likes}}</span>
+                            {% endif %}
+                            {% if article.number_of_comments > 0 %}
+                            <span class="mx-3"><i class="fa-solid fa-message"></i>
+                                {{article.number_of_comments}}</span>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
             </div>

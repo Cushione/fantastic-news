@@ -7,20 +7,31 @@ $pagination-color: rgb(108, 117, 125);
 Breakpoint-specific height and width classes
 https://stackoverflow.com/questions/47760132/any-way-to-get-breakpoint-specific-width-classes
 */
-$sizes: ( 25: 25%, 50: 50%, 75: 75%, 100: 100%, auto: auto ); 
+$sizes: (25: 25%, 50: 50%, 75: 75%, 100: 100%, auto: auto);
+
 @each $breakpoint in map-keys($grid-breakpoints) {
 
-    @each $size, $length in $sizes {
+    @each $size,
+    $length in $sizes {
         @include media-breakpoint-up($breakpoint) {
             .w-#{$breakpoint}-#{$size} {
                 width: $length !important;
             }
-            
+
             .h-#{$breakpoint}-#{$size} {
                 height: $length !important;
             }
         }
     }
+}
+
+.line-clamp-3 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
 }
 
 .brand-logo {
