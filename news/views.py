@@ -5,12 +5,16 @@ from .models import Article, Comment
 from .forms import CommentForm
 from django.contrib import messages
 from django.http import HttpResponse, QueryDict, HttpResponseBadRequest, HttpResponseServerError, HttpResponseNotFound
+from functools import reduce
+import operator
+from django.db.models import Q
+
 
 def Home(request):
 	queryset = Article.objects.filter(status=1, type=0)
 	if not queryset.exists():
 		return HttpResponseServerError()
-	latest_article = queryset.latest()
+	latest_article = queryset.latest() 
 	article_list = queryset.exclude(id=latest_article.id)
 	paginator = Paginator(article_list, 4)
 	page_number = request.GET.get('page')
@@ -95,3 +99,31 @@ class AddArticleComment(View):
 			messages.error(request, "Invalid comment.")
 
 		return redirect(reverse('news:article_detail', args=[slug]))
+
+
+class SearchResults(View):
+	def get(self, request, *args, **kwargs):
+		keyword_list = request.GET.get('keywords', '')
+		if keyword_list == '':
+			return HttpResponseNotFound()
+		keywords = keyword_list.split()
+		query_title = reduce(
+			operator.and_, 
+			(Q(
+				Q(title__icontains=x) |
+				Q(location__icontains=x) |
+				Q(content__icontains=x))
+				for x in keywords))
+		search_results = Article.objects.filter(query_title)
+	
+		paginator = Paginator(search_results, 10)
+		page_number = request.GET.get('page')
+		current_page = paginator.get_page(page_number)
+		return render(
+			request,
+			"search-results.html",
+			{
+				"search_results": current_page,
+				"keywords": keyword_list
+				},
+		)

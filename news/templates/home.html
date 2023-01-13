@@ -68,69 +68,24 @@
 
     <div class="col-12 col-lg-8">
         <h2 class="mb-5 mt-3">Trending</h2>
-        {% for article in main_article_list %}
-        <a href="{% url 'news:article_detail' article.slug %}"
-            data-testid="main-article-{{forloop.counter}}"
-            class="card border-0 link-dark main-article-card article-card text-decoration-none">
-            <div class="row g-0 h-100 flex-column flex-lg-row flex-nowrap">
-                <div class="col-12 col-lg-4 h-50 h-lg-100 flex-grow-1">
-                    {% if "placeholder" in article.featured_image.url %}
-                    <img class="img-fluid rounded w-100 mh-100 h-100 article-img"
-                        src="https://codeinstitute.s3.amazonaws.com/fullstack/blog/default.jpg">
-                    {% else %}
-                    <img class="img-fluid rounded w-100 mh-100 h-100 article-img"
-                        src=" {{ article.featured_image.url }}">
-                    {% endif %}
-                </div>
-
-                <div class="col-12 col-lg-8">
-                    <div class="card-body d-flex flex-column h-100">
-                        <h3 class="card-title flex-grow-1 h-lg-auto">{{ article.title }}</h3>
-                        <div class="card-text mt-2 d-flex justify-content-between small text-secondary">
-                            <span>{{article.published_on}}</span>
-                            <div>
-                                {% if article.number_of_likes > 0 %}
-                                <span><i class="fa-solid fa-heart"></i> {{article.number_of_likes}}</span>
-                                {% endif %}
-                                {% if article.number_of_comments > 0 %}
-                                <span class="mx-3"><i class="fa-solid fa-message"></i>
-                                    {{article.number_of_comments}}</span>
-                                {% endif %}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </a>
-        {% if not forloop.last %}
-        <hr class="my-4" />
-        {% endif %}
-        {% endfor %}
+        {% include "article_list.html" with article_list=main_article_list %}
         <nav class="mt-4" aria-label="Main article list navigation" data-testid="main-article-navigation">
             <ul class="pagination justify-content-center">
                 {% if main_article_list.has_previous %}
                 <li class="page-item" data-testid="prev-link">
-                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
-                </li>
-                {% else %}
-                <li class="page-item disabled" data-testid="prev-link">
-                    <a class="page-link" href="#">Previous</a>
+                    <a class="page-link" href="?page={{ main_article_list.previous_page_number }}">Previous</a>
                 </li>
                 {% endif %}
-
+        
                 {% for page_num in main_article_list.paginator.page_range%}
                 <li class="page-item {% if main_article_list.number == page_num %}active{% endif %}">
                     <a class="page-link" href="?page={{page_num}}">{{page_num}}</a>
                 </li>
                 {% endfor %}
-
+        
                 {% if main_article_list.has_next%}
                 <li class="page-item" data-testid="next-link">
                     <a class="page-link" href="?page={{ main_article_list.next_page_number }}">Next</a>
-                </li>
-                {% else %}
-                <li class="page-item disabled" data-testid="next-link">
-                    <a class="page-link" href="#">Next</a>
                 </li>
                 {% endif %}
             </ul>

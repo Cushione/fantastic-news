@@ -8,10 +8,9 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="main-navigation">
-            <form class="d-flex my-3 my-lg-0" role="search" action="search" method="post" data-testid="search">
-                {% csrf_token %}
+            <form class="d-flex my-3 my-lg-0" role="search" action="{% url 'news:search-results' %}" method="get" data-testid="search">
                 <div class="input-group me-0 me-lg-4">
-                    <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                    <input class="form-control" type="search" name="keywords" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-primary" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </div>
             </form>
