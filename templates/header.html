@@ -1,14 +1,14 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white">
     <div class="container">
         <a class="navbar-brand brand-logo d-flex align-items-center" href="{% url 'news:home' %}">
-            <span class="ms-3 d-none d-sm-inline-block"><span class="text-primary">Fantastic</span> News</span>
+            <span data-testid="brand-name" class="ms-3 d-none d-sm-inline-block"><span class="text-primary">Fantastic</span> News</span>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-navigation"
             aria-controls="main-navigation" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="main-navigation">
-            <form class="d-flex my-3 my-lg-0" role="search" action="search" method="post">
+            <form class="d-flex my-3 my-lg-0" role="search" action="search" method="post" data-testid="search">
                 {% csrf_token %}
                 <div class="input-group me-0 me-lg-4">
                     <input class="form-control" type="search" placeholder="Search" aria-label="Search">
@@ -18,17 +18,17 @@
             <ul class="navbar-nav mb-2 mb-lg-0">
                 {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <span class="nav-link nav-username">{{user.username}}</span>
+                    <span class="nav-link nav-username" data-testid="member-username">{{user.username}}</span>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/logout">Logout</a>
+                    <a class="nav-link" href="/logout" data-testid="logout-link">Logout</a>
                 </li>
                 {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'member:register' %}?next={{request.path}}">Register</a>
+                    <a class="nav-link" data-testid="register-link" href="{% url 'member:register' %}?next={{request.path}}">Register</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'member:login' %}?next={{request.path}}">Login</a>
+                    <a class="nav-link" data-testid="login-link" href="{% url 'member:login' %}?next={{request.path}}">Login</a>
                 </li>
                 {% endif %}
             </ul>

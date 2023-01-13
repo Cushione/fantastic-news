@@ -1,0 +1,13 @@
+{
+  "name": "fantastic-news",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Cushione/fantastic-news.git",
+  "author": "Cushione <maulerovak@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.29.2",
+    "dotenv": "^16.0.3"
+  },
+  "scripts": {}
+}

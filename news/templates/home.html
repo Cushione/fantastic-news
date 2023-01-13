@@ -3,20 +3,20 @@
 {% block content %}
 {% if main_article_list.number == 1 %}
 <h2 class="mb-4">Latest News</h2>
-<a href="{% url 'news:article_detail' latest_article.slug %}" class="card link-dark text-decoration-none article-card">
+<a href="{% url 'news:article_detail' latest_article.slug %}" id="latest-article" class="card link-dark text-decoration-none article-card">
     <div class="row g-0">
         <div class="col-12 col-sm-7 p-4 order-2 order-sm-1">
             <div class="card-body d-flex flex-column h-100">
-                <h4 class="card-title fw-bold">{{latest_article.title}}</h4>
+                <h4 class="card-title fw-bold" data-testid="latest-article-title">{{latest_article.title}}</h4>
                 <div class="flex-grow-1 w-100 w-sm-50 d-flex align-items-center">
                     <hr class="w-100">
                 </div>
-                <div class="fs-6 card-text">
+                <div class="fs-6 card-text" data-testid="latest-article-body">
                     <span class="text-primary">{{latest_article.location | upper}}</span> -
                     {{latest_article.content  | safe | striptags |truncatechars_html:150}}
                 </div>
                 <div class="card-text mt-4 d-flex flex-column flex-md-row justify-content-between small text-secondary">
-                    <span>{{latest_article.published_on}}</span>
+                    <span data-testid="latest-article-date">{{latest_article.published_on}}</span>
                     <div>
                         {% if latest_article.number_of_likes > 0 %}
                         <span><i class="fa-solid fa-heart"></i> {{latest_article.number_of_likes}}</span>
@@ -49,6 +49,7 @@
         <div class="row flex-column flex-sm-row">
             {% for article in secondary_article_list %}
             <a href="{% url 'news:article_detail' article.slug %}"
+                data-testid="secondary-article-{{forloop.counter}}"
                 class="card border-0 link-dark article-card text-decoration-none 
                 col-12 col-sm-3 col-lg-12 d-flex flex-row flex-lg-column ps-sm-0 
                 {% if forloop.counter > 4%}d-none{% endif %} d-lg-block text-sm-center 
@@ -69,6 +70,7 @@
         <h2 class="mb-5 mt-3">Trending</h2>
         {% for article in main_article_list %}
         <a href="{% url 'news:article_detail' article.slug %}"
+            data-testid="main-article-{{forloop.counter}}"
             class="card border-0 link-dark main-article-card article-card text-decoration-none">
             <div class="row g-0 h-100 flex-column flex-lg-row flex-nowrap">
                 <div class="col-12 col-lg-4 h-50 h-lg-100 flex-grow-1">
@@ -104,14 +106,14 @@
         <hr class="my-4" />
         {% endif %}
         {% endfor %}
-        <nav class="mt-4" aria-label="Main article list navigation">
+        <nav class="mt-4" aria-label="Main article list navigation" data-testid="main-article-navigation">
             <ul class="pagination justify-content-center">
                 {% if main_article_list.has_previous %}
-                <li class="page-item">
+                <li class="page-item" data-testid="prev-link">
                     <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
                 </li>
                 {% else %}
-                <li class="page-item disabled">
+                <li class="page-item disabled" data-testid="prev-link">
                     <a class="page-link" href="#">Previous</a>
                 </li>
                 {% endif %}
@@ -123,11 +125,11 @@
                 {% endfor %}
 
                 {% if main_article_list.has_next%}
-                <li class="page-item">
+                <li class="page-item" data-testid="next-link">
                     <a class="page-link" href="?page={{ main_article_list.next_page_number }}">Next</a>
                 </li>
                 {% else %}
-                <li class="page-item disabled">
+                <li class="page-item disabled" data-testid="next-link">
                     <a class="page-link" href="#">Next</a>
                 </li>
                 {% endif %}
