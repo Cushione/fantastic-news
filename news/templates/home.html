@@ -32,9 +32,10 @@
         <div class="col-12 col-sm-5 order-1 order-sm-2">
             {% if "placeholder" in latest_article.featured_image.url %}
             <img src="https://codeinstitute.s3.amazonaws.com/fullstack/blog/default.jpg"
-                class="img-fluid rounded-end h-100 article-img w-100 w-sm-auto">
+                class="img-fluid rounded-end h-100 article-img w-100 w-sm-auto" alt="{article.title}">
             {% else %}
-            <img src=" {{ latest_article.featured_image.url }}" class="img-fluid rounded-end h-100 article-img w-100 w-sm-auto">
+            <img src=" {{ latest_article.featured_image.url }}" 
+            class="img-fluid rounded-end h-100 article-img w-100 w-sm-auto" alt="{article.title}">
             {% endif %}
         </div>
     </div>

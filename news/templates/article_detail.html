@@ -22,7 +22,7 @@
                 https://codeinstitute.s3.amazonaws.com/fullstack/blog/default.jpg
             {% else %}
                 {{ article.featured_image.url }}
-            {% endif %}">
+            {% endif %}" alt="{article.title}">
         <div class="mt-4 fs-5 article-body" data-testid="article-body">
             <p class="float-start m-0">
                 <span class="text-primary">{{article.location | upper}}</span> -&nbsp;

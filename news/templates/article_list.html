@@ -5,9 +5,10 @@
         <div class="col-12 col-lg-4 h-50 h-lg-100 flex-grow-1">
             {% if "placeholder" in article.featured_image.url %}
             <img class="img-fluid rounded w-100 mh-100 h-100 article-img"
-                src="https://codeinstitute.s3.amazonaws.com/fullstack/blog/default.jpg">
+                src="https://codeinstitute.s3.amazonaws.com/fullstack/blog/default.jpg" alt="{article.title}">
             {% else %}
-            <img class="img-fluid rounded w-100 mh-100 h-100 article-img" src=" {{ article.featured_image.url }}">
+            <img class="img-fluid rounded w-100 mh-100 h-100 article-img" 
+            src=" {{ article.featured_image.url }}" alt="{article.title}">
             {% endif %}
         </div>
 
