@@ -2,6 +2,9 @@
 
 {% block content %}
 <h2>Search Results</h2>
+{% if search_results.paginator.count == 0 %}
+<p class="fs-4 mt-4">No article found.</p>
+{% else %}
 {% include "article_list.html" with article_list=search_results %}
 <nav class="mt-4" aria-label="Article list navigation" data-testid="article-navigation">
     <ul class="pagination justify-content-center">
@@ -24,4 +27,5 @@
         {% endif %}
     </ul>
 </nav>
+{% endif %}
 {% endblock %}
