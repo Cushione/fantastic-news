@@ -1,4 +1,7 @@
 function deleteComment(commentId) {
+  if (!confirm("Do you really want to delete this comment?")) {
+    return
+  }
   toggleBtnLoading(commentId, 'comment-delete-btn')
   const csrftoken = Cookies.get('csrftoken')
   fetch('/comments/' + commentId, {
