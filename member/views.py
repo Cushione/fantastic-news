@@ -5,6 +5,11 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 
 def login_request(request):
+    if request.user.is_authenticated:
+        if request.GET.get('next'):
+            return redirect(request.GET.get('next'))
+        else:
+            return redirect("news:home")
     form = AuthenticationForm()
     if request.method == "POST":
         form = AuthenticationForm(request, data=request.POST)
@@ -23,6 +28,11 @@ def login_request(request):
     return render(request, template_name="login.html", context={"login_form":form})
 
 def register_request(request):
+    if request.user.is_authenticated:
+        if request.GET.get('next'):
+            return redirect(request.GET.get('next'))
+        else:
+            return redirect("news:home")
     form = RegisterForm()
     if request.method == "POST":
         form = RegisterForm(request.POST)
