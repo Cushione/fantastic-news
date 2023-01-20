@@ -14,6 +14,8 @@ from pathlib import Path
 import os
 import dj_database_url
 from django.contrib.messages import constants as messages
+
+# Import enviroment variables from env.py, if the file exists
 if os.path.isfile('env.py'):
     import env
 
@@ -33,7 +35,7 @@ DEBUG = False
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
-ALLOWED_HOSTS = ["fantastic-news.herokuapp.com", "*"]
+ALLOWED_HOSTS = ["fantastic-news.herokuapp.com", "localhost"]
 
 # Application definition
 
@@ -54,6 +56,7 @@ INSTALLED_APPS = [
     'news',
 ]
 
+# Map message tags to Bootstrap classes
 MESSAGE_TAGS = {
     messages.DEBUG: 'alert-info',
     messages.INFO: 'alert-info',
@@ -90,6 +93,7 @@ TEMPLATES = [
     },
 ]
 
+# Configure Crispy Forms Template
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
@@ -157,6 +161,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_URL = '/media/'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
+# SASS compiler configuration
 SASS_COMPILER_STYLE = 'compressed'
 SASS_COMPILER_NO_BUILD = True
 SASS_COMPILER_IGNORE = [
