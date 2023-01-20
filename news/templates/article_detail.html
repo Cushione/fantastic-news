@@ -30,7 +30,9 @@
             {{article.content  | safe }}
         </div>
         {% if article.original_article %}
-        <p class="mt-5">Original article can be found at <a href="{{article.original_article}}">{{article.original_article}}</a></p>
+        <p class="mt-5">
+            Original article can be found at <a target="_blank" href="{{article.original_article}}">{{article.original_article}}</a>
+        </p>
         {% endif %}
         <p></p>
         <hr class="my-5" />
