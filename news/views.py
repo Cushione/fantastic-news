@@ -4,7 +4,7 @@ from django.views import View
 from .models import Article, Comment
 from .forms import CommentForm
 from django.contrib import messages
-from django.http import HttpResponse, QueryDict, HttpResponseBadRequest, HttpResponseServerError, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseServerError
 from functools import reduce
 import operator
 from django.db.models import Q
@@ -147,17 +147,19 @@ class SearchResults(View):
 		keyword_list = request.GET.get('keywords', '')
 		# Redirect to the homepage if no keywords are given
 		if keyword_list == '':
+			return redirect("news:home")
 		# Split keywords into list
 		keywords = keyword_list.split()
 		# Create search query
 		# Find any article that has all the keywords in either the title, location, or content
+		search_query = reduce(
 			operator.and_, 
 			(Q(
 				Q(title__icontains=x) |
 				Q(location__icontains=x) |
 				Q(content__icontains=x))
 				for x in keywords))
-		search_results = Article.objects.filter(query_title)
+		search_results = Article.objects.filter(search_query)
 	
 		# Paginate the search result
 		paginator = Paginator(search_results, 10)
