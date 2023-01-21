@@ -2,6 +2,7 @@
 <a href="{% url 'news:article_detail' article.slug %}" data-testid="main-article-{{forloop.counter}}"
     class="card border-0 link-dark main-article-card article-card text-decoration-none">
     <div class="row g-0 h-100 flex-column flex-lg-row flex-nowrap">
+        <!-- Article Image -->
         <div class="col-12 col-lg-4 h-50 h-lg-100 flex-grow-1">
             {% if "placeholder" in article.featured_image.url %}
             <img class="img-fluid rounded w-100 mh-100 h-100 article-img"
@@ -14,14 +15,18 @@
 
         <div class="col-12 col-lg-8">
             <div class="card-body d-flex flex-column h-100">
+                <!-- Article Title -->
                 <h3 class="card-title h-lg-auto line-clamp-3">{{ article.title }}</h3>
                 <div class="card-text flex-grow-1 mt-2 d-flex flex-column justify-content-end">
                     <div class="d-flex justify-content-between small text-secondary">
+                        <!-- Date Of Publishing -->
                         <span>{{article.published_on}}</span>
                         <div>
+                            <!-- Number Of Likes -->
                             {% if article.number_of_likes > 0 %}
                             <span><i class="fa-solid fa-heart"></i> {{article.number_of_likes}}</span>
                             {% endif %}
+                            <!-- Number Of Comments -->
                             {% if article.number_of_comments > 0 %}
                             <span class="mx-3"><i class="fa-solid fa-message"></i>
                                 {{article.number_of_comments}}</span>

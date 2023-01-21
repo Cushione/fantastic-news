@@ -2,25 +2,31 @@
 
 {% block content %}
 {% if main_article_list.number == 1 %}
+<!-- Latest News Section -->
 <h2 class="mb-4">Latest News</h2>
 <a href="{% url 'news:article_detail' latest_article.slug %}" id="latest-article" class="card link-dark text-decoration-none article-card">
     <div class="row g-0">
         <div class="col-12 col-sm-7 p-4 order-2 order-sm-1">
             <div class="card-body d-flex flex-column h-100">
+                <!-- Latest Article Title -->
                 <h4 class="card-title fw-bold" data-testid="latest-article-title">{{latest_article.title}}</h4>
                 <div class="flex-grow-1 w-100 w-sm-50 d-flex align-items-center">
                     <hr class="w-100">
                 </div>
+                <!-- Latest Article Excerpt -->
                 <div class="fs-6 card-text" data-testid="latest-article-body">
                     <span class="text-primary">{{latest_article.location | upper}}</span> -
                     {{latest_article.content  | safe | striptags |truncatechars_html:150}}
                 </div>
                 <div class="card-text mt-4 d-flex flex-column flex-md-row justify-content-between small text-secondary">
+                    <!-- Date Of Publishing -->
                     <span data-testid="latest-article-date">{{latest_article.published_on}}</span>
                     <div>
+                        <!-- Number Of Likes -->
                         {% if latest_article.number_of_likes > 0 %}
                         <span><i class="fa-solid fa-heart"></i> {{latest_article.number_of_likes}}</span>
                         {% endif %}
+                        <!-- Number Of Comments -->
                         {% if latest_article.number_of_comments > 0 %}
                         <span class="mx-3"><i class="fa-solid fa-message"></i>
                             {{latest_article.number_of_comments}}</span>
@@ -29,6 +35,7 @@
                 </div>
             </div>
         </div>
+        <!-- Latest Article Image -->
         <div class="col-12 col-sm-5 order-1 order-sm-2">
             {% if "placeholder" in latest_article.featured_image.url %}
             <img src="https://codeinstitute.s3.amazonaws.com/fullstack/blog/default.jpg"
@@ -45,6 +52,7 @@
 {% endif %}
 
 <div class="row mt-2">
+    <!-- Secondary News Section -->
     <div class="col-12 col-lg-4 order-lg-1 text-lg-end ps-lg-5 mb-5 mb-lg-0">
         <h2 class="mb-5 mt-3">Headlines</h2>
         <div class="row flex-column flex-sm-row">
@@ -58,6 +66,7 @@
                 {% if not forloop.first %}
                 <div class="vr d-none d-sm-inline-block d-lg-none me-3"></div>
                 {% endif %}
+                <!-- Secondary News Title -->
                 <div class="card-body px-0">
                     <h5 class="card-title">{{ article.title }}</h5>
                 </div>
@@ -66,10 +75,12 @@
         </div>
     </div>
 
-
+    <!-- Main News Section -->
     <div class="col-12 col-lg-8">
         <h2 class="mb-5 mt-3">Trending</h2>
+        <!-- Load article list template with the main article list -->
         {% include "article_list.html" with article_list=main_article_list %}
+        <!-- Pagination controls -->
         <nav class="mt-4" aria-label="Main article list navigation" data-testid="main-article-navigation">
             <ul class="pagination justify-content-center">
                 {% if main_article_list.has_previous %}

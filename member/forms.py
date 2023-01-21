@@ -4,6 +4,10 @@ from django.contrib.auth.models import User
 
 
 class RegisterForm(UserCreationForm):
+    """
+    Form for registring new members.
+    Extends default user creation form by first name and email address.
+    """
     first_name = forms.CharField(
         max_length=50,
         required=True,

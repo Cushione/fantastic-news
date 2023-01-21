@@ -8,21 +8,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
     
+    <!-- Google fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;700&display=swap" rel="stylesheet">
+    <!-- Font awesome -->
     <script src="https://kit.fontawesome.com/bff7419e74.js" crossorigin="anonymous"></script>
+    <!-- Bootstrap -->
     <script src="{% static 'js/bootstrap/bootstrap.bundle.min.js' %}"></script>
+    <!-- JS Cookie -->
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
+    <!-- CSS -->
     <link rel="stylesheet" href="{% static 'css/style.min.css' %}">
 
 </head>
 
 <body class="d-flex flex-column">
 
-    <!-- Header -->
+    <!-- Load Header Template -->
     {% include "header.html" %}
 
+    <!-- Messages -->
     {% if messages %}
     <div id="message-container">
         {% for message in messages %}
@@ -40,7 +46,7 @@
         {% endblock content %}
     </main>
 
-    <!-- Footer -->
+    <!-- Load Footer Template -->
     {% include "footer.html" %}
 
     {% block scripts %}
@@ -48,6 +54,7 @@
     {% endblock scripts%}
 
     <script>
+        // Hide messages automatically after 2.5 seconds.
         setTimeout(function () {
             const alertList = document.querySelectorAll('.alert')
             const alerts = [...alertList].map(element => new bootstrap.Alert(element))

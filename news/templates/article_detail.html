@@ -1,15 +1,20 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
+<!-- Article Detail Section -->
 <div class="row">
     <div class="col-12 col-lg-8 offset-lg-2">
+        <!-- Article Title -->
         <h2 data-testid="article-title">{{article.title}}</h2>
         <div class="d-flex justify-content-between small text-secondary mb-3">
+            <!-- Date Of Publishing -->
             {{article.published_on}}
             <div>
+                <!-- Number Of Likes -->
                 {% if article.number_of_likes > 0 %}
                 <span><i class="fa-solid fa-heart"></i> {{article.number_of_likes}}</span>
                 {% endif %}
+                <!-- Number Of Comments -->
                 {% if article.number_of_comments > 0 %}
                 <span class="mx-3"><i class="fa-solid fa-message"></i>
                     {{article.number_of_comments}}</span>
@@ -17,25 +22,32 @@
             </div>
         </div>
 
+        <!-- Article Image -->
         <img data-testid="article-image" class="img-fluid w-100 rounded article-detail-img" src="
             {% if 'placeholder' in article.featured_image.url %}
                 https://codeinstitute.s3.amazonaws.com/fullstack/blog/default.jpg
             {% else %}
                 {{ article.featured_image.url }}
             {% endif %}" alt="{article.title}">
+
+        <!-- Article Content -->
         <div class="mt-4 fs-5 article-body" data-testid="article-body">
             <p class="float-start m-0">
                 <span class="text-primary">{{article.location | upper}}</span> -&nbsp;
             </p>
             {{article.content  | safe }}
         </div>
+
+        <!-- Link to original article if applicable -->
         {% if article.original_article %}
         <p class="mt-5">
             Original article can be found at <a target="_blank" href="{{article.original_article}}">{{article.original_article}}</a>
         </p>
         {% endif %}
-        <p></p>
+        
         <hr class="my-5" />
+
+        <!-- Like Button -->
         {% if user.is_authenticated %}
         <form class="d-inline" action="{% url 'news:article_like' article.slug %}" method="POST">
             {% csrf_token %}
@@ -50,6 +62,7 @@
         </form>
         {% endif %}
 
+        <!-- Comment Section -->
         <h3 class="my-5" data-testid="comment-title">
             {% if article.number_of_comments > 0 %}
             {% if article.number_of_comments == 1 %}
@@ -61,6 +74,8 @@
             No Comments Yet
             {% endif %}
         </h3>
+
+        <!-- Add Comment Section -->
         {% if not user.is_authenticated %}
         <p data-testid="login-hint">
             <a href="{% url 'member:login' %}?next={{request.path}}" class="link-dark">Log in</a>
@@ -72,6 +87,7 @@
         to start a discussion.
         {% endif %}
         {% else %}
+        <!-- Add Comment Form -->
         <form class="mb-3" method="POST" action="{% url 'news:add_article_comment' article.slug %}"
             data-testid="comment-form">
             {% csrf_token %}
@@ -80,12 +96,16 @@
             <button type="submit" class="btn btn-primary mt-3">Post Comment</button>
         </form>
         {% endif %}
+
+        <!-- Comment List -->
         <div data-testid="comment-list">
             {% for comment in comments %}
             <div class="card mb-3 {% if comment.deleted %}bg-light bg-gradient{% endif %}" id="comment-{{comment.id}}">
                 <div class="card-body">
+                    <!-- Comment Author -->
                     <h5 class="card-title fs-6">
                         {{comment.author}}
+                        <!-- Comment Action Buttons -->
                         {% if not comment.deleted and user.is_authenticated and user.id == comment.author.id %}
                         <span class="float-end action-buttons">
                             <button class="btn btn-light btn-sm comment-edit-btn"
@@ -99,7 +119,9 @@
                         </span>
                         {% endif %}
                     </h5>
+                    <!-- Comment Date -->
                     <h6 class="card-subtitle mb-2 text-secondary small">{{comment.created_on}}</h6>
+                    <!-- Comment Content -->
                     <p class="card-text comment-content">
                         {% if comment.deleted %}
                         This comment was deleted.
@@ -116,5 +138,6 @@
 {% endblock %}
 
 {% block scripts %}
+<!-- Load custom Javascript for handling editing and deleting comments -->
 <script src="{% static 'js/article_detail.js' %}"></script>
 {% endblock %}

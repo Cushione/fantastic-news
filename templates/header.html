@@ -1,20 +1,29 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white">
     <div class="container">
+        
+        <!-- Fantastic News logo -->
         <a class="navbar-brand brand-logo d-flex align-items-center" href="{% url 'news:home' %}">
             <span data-testid="brand-name" class="ms-3 d-none d-sm-inline-block"><span class="text-primary">Fantastic</span> News</span>
         </a>
+        
+        <!-- Menu toggle for mobile screens -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-navigation"
             aria-controls="main-navigation" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse justify-content-end" id="main-navigation">
+
+            <!-- Article Search -->
             <form class="d-flex my-3 my-lg-0" role="search" action="{% url 'news:search-results' %}" method="get" data-testid="search">
                 <div class="input-group me-0 me-lg-4">
                     <input class="form-control" type="search" name="keywords" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-primary" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </div>
             </form>
+
             <ul class="navbar-nav mb-2 mb-lg-0">
+                <!-- Show username and logout link if authenticated -->
                 {% if user.is_authenticated %}
                 <li class="nav-item">
                     <span class="nav-link nav-username" data-testid="member-username">{{user.username}}</span>
@@ -22,6 +31,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/logout" data-testid="logout-link">Logout</a>
                 </li>
+                <!-- Show register and login link if not authenticated -->
                 {% else %}
                 <li class="nav-item">
                     <a class="nav-link" data-testid="register-link" href="{% url 'member:register' %}?next={{request.path}}">Register</a>

@@ -4,7 +4,7 @@ from django.views import View
 from .models import Article, Comment
 from .forms import CommentForm
 from django.contrib import messages
-from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseServerError
+from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseServerError, HttpResponseForbidden
 from functools import reduce
 import operator
 from django.db.models import Q
@@ -12,7 +12,7 @@ from django.db.models import Q
 
 def Home(request):
 	"""
-	Home Function Based View for displaying the homepage
+	Home Function Based View for displaying the homepage.
 	"""
 	# Find all the published main articles
 	queryset = Article.objects.filter(status=1, type=0)
@@ -42,9 +42,10 @@ def Home(request):
 			}
 		)
 
+
 class ArticleDetail(View):
 	"""
-	Article Detail Class Based View for displaying specific article
+	Article Detail Class Based View for displaying specific article.
 	"""
 	def get(self, request, slug, *args, **kwargs):
 		# Find specified article or show error page if not found
@@ -72,7 +73,7 @@ class ArticleDetail(View):
 
 class ArticleLike(View):
 	"""
-	Article Like Class Based View for toggling likes
+	Article Like Class Based View for toggling likes.
 	"""
 	def post(self, request, slug, *args, **kwargs):
 		# Find specified article or show error page if not found
@@ -80,9 +81,11 @@ class ArticleLike(View):
 
 		# Toggle user like by adding or removing them from the list
 		if article.likes.filter(id=request.user.id).exists():
+			messages.info(request, "You have unliked this article.")
 			article.likes.remove(request.user)
 		else:
 			article.likes.add(request.user)
+			messages.success(request, "Thank you for giving this article a like!")
 
 		# Redirect to the article detail view
 		return redirect(reverse('news:article_detail', args=[slug]))
@@ -90,34 +93,42 @@ class ArticleLike(View):
 
 class ArticleComments(View):
 	"""
-	Article Comments Class Based View handling comment requests
+	Article Comments Class Based View handling comment requests.
 	"""
 	def delete(self, request, comment_id, *args, **kwargs):
 		# Find specified comment or show error page if not found
 		comment = get_object_or_404(Comment, id=comment_id)
-		# Set deleted flag
-		comment.deleted = True
-		comment.save()
-		# Return success response
-		return HttpResponse()
+		# Only allow the owner of the comment to delete
+		if comment.author == request.user:
+			# Set deleted flag
+			comment.deleted = True
+			comment.save()
+			# Return success response
+			return HttpResponse()
+		messages.error(request, "You are not allowed to delete this comment.")
+		return HttpResponseForbidden()
 		
 	def post(self, request, comment_id, *args, **kwargs):
 		# Find specified comment or show error page if not found
 		comment = get_object_or_404(Comment, id=comment_id)
 		comment_form = CommentForm(data=request.POST)
+		# Only allow the owner of the comment to edit
+		if comment.author == request.user:
+			# Update the comment content if form is valid
+			if comment_form.is_valid():
+				comment.content = comment_form.cleaned_data.get('content')
+				comment.save()
+				# Return success response
+				return HttpResponse()
+			# If form is invalid, return bad request response
+			return HttpResponseBadRequest()
+		messages.error(request, "You are not allowed to delete this comment.")
+		return HttpResponseForbidden()
 
-		# Update the comment content if form is valid
-		if comment_form.is_valid():
-			comment.content = comment_form.cleaned_data.get('content')
-			comment.save()
-			# Return success response
-			return HttpResponse()
-		# If form is invalid, return bad request response
-		return HttpResponseBadRequest()
 
 class AddArticleComment(View):
 	"""
-	Add Article Comments Class Based View for adding comments
+	Add Article Comments Class Based View for adding comments.
 	"""
 	def post(self, request, slug, *args, **kwargs):
 		# Find specified article or show error page if not found
@@ -131,6 +142,7 @@ class AddArticleComment(View):
 			comment.author = request.user
 			comment.article = article
 			comment.save()
+			messages.success(request, "Comment added successfully.")
 		else:
 			# If invalid, set error message
 			messages.error(request, "Invalid comment.")
@@ -140,7 +152,7 @@ class AddArticleComment(View):
 
 class SearchResults(View):
 	"""
-	SearchResults Class Based View for displaying search results
+	SearchResults Class Based View for displaying search results.
 	"""
 	def get(self, request, *args, **kwargs):
 		# Get keywords from the request

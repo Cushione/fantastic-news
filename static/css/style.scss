@@ -1,3 +1,4 @@
+// Overwrite Bootrap variables before importing
 $primary: #2FE0A2;
 $pagination-color: rgb(108, 117, 125);
 
@@ -25,6 +26,7 @@ $sizes: (25: 25%, 50: 50%, 75: 75%, 100: 100%, auto: auto);
     }
 }
 
+// Clamp lines to three lines for article titles
 .line-clamp-3 {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -34,6 +36,7 @@ $sizes: (25: 25%, 50: 50%, 75: 75%, 100: 100%, auto: auto);
     -webkit-box-orient: vertical;
 }
 
+// Navbar styling
 .brand-logo {
     font-size: 2rem;
 
@@ -60,6 +63,7 @@ $sizes: (25: 25%, 50: 50%, 75: 75%, 100: 100%, auto: auto);
     white-space: nowrap;
 }
 
+// Messages styling
 #message-container {
     position: fixed;
     top: 5vh;
@@ -72,6 +76,7 @@ $sizes: (25: 25%, 50: 50%, 75: 75%, 100: 100%, auto: auto);
     }
 }
 
+// Article list styling
 .main-article-card {
     height: 350px;
 }
@@ -93,6 +98,7 @@ $sizes: (25: 25%, 50: 50%, 75: 75%, 100: 100%, auto: auto);
     object-fit: cover;
 }
 
+// Media queries
 @media screen and (min-width: 992px) {
     .main-article-card {
         height: 180px;
