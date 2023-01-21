@@ -6,6 +6,7 @@ class CommentForm(forms.ModelForm):
     """
     Form for writing comments.
     """
+
     class Meta:
         model = Comment
-        fields = ('content',)
+        fields = ("content",)

@@ -28,7 +28,7 @@ function deleteComment(commentId) {
     }).catch(() => {
       // If request failed, enable delete button
       toggleBtnLoading(commentId, 'comment-delete-btn')
-    }) 
+    })
 }
 
 function toggleEditForm(commentId) {
@@ -43,7 +43,8 @@ function toggleEditForm(commentId) {
     // the comment body with the editing form and buttons
     editBtn.classList.replace("btn-light", "btn-primary")
     content.dataset.content = content.innerHTML
-    content.innerHTML = `<textarea id="comment-${commentId}-textarea" class="form-control">${content.innerHTML.trim()}</textarea>
+    content.innerHTML = `
+    <textarea id="comment-${commentId}-textarea" class="form-control">${content.innerHTML.trim()}</textarea>
     <div class="d-flex justify-content-end mt-2">
     <button onclick="saveComment(${commentId})" class="btn btn-primary btn-sm me-2 comment-save-btn">Save</button>
     <button onclick="toggleEditForm(${commentId})" class="btn btn-secondary btn-sm">Cancel</button>
@@ -80,14 +81,14 @@ function saveComment(commentId) {
         // If request was successful, set content data attribute to the 
         // new content and toggle form
         const content = document.getElementById("comment-" + commentId)
-        .getElementsByClassName("comment-content")[0]
+          .getElementsByClassName("comment-content")[0]
         content.dataset.content = newContent
         toggleEditForm(commentId)
       }
     }).catch(() => {
       // If request failed, enable save button
       toggleBtnLoading(commentId, 'comment-save-btn')
-    }) 
+    })
 }
 
 function toggleBtnLoading(commentId, btnClass) {
@@ -105,8 +106,8 @@ function toggleBtnLoading(commentId, btnClass) {
       icon.classList.replace("fa-solid", "fa-regular")
       icon.classList.remove("fa-spin")
       icon.classList.replace("fa-circle-notch", btn.dataset.icon)
-    // If the button icon is not spinning i.e. active,
-    // disable button, store original icon and replace with spinning icon 
+      // If the button icon is not spinning i.e. active,
+      // disable button, store original icon and replace with spinning icon 
     } else {
       btn.classList.add("disabled")
       iconName = Array.from(icon.classList).filter(c => c !== "fa-regular").pop()
@@ -115,15 +116,15 @@ function toggleBtnLoading(commentId, btnClass) {
       icon.classList.replace("fa-regular", "fa-solid")
       icon.classList.add("fa-spin", "fa-circle-notch")
     }
-  // If the button is a text button
+    // If the button is a text button
   } else {
     // If the button has an icon, then the button is loading,
     // so we replace icon with the original text and enable the button
     if (btn.innerHTML.includes("loading-text-button")) {
       btn.innerHTML = btn.dataset.content
       btn.classList.remove("disabled")
-    // If the button has no icon, then the button is not loading,
-    // so we store the original text, add loading icon and disable the button
+      // If the button has no icon, then the button is not loading,
+      // so we store the original text, add loading icon and disable the button
     } else {
       btn.classList.add("disabled")
       btn.dataset.content = btn.innerHTML

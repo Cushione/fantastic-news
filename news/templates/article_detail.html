@@ -12,7 +12,8 @@
             <div>
                 <!-- Number Of Likes -->
                 {% if article.number_of_likes > 0 %}
-                <span><i class="fa-solid fa-heart"></i> {{article.number_of_likes}}</span>
+                <span><i class="fa-solid fa-heart"></i>
+                    {{article.number_of_likes}}</span>
                 {% endif %}
                 <!-- Number Of Comments -->
                 {% if article.number_of_comments > 0 %}
@@ -24,11 +25,11 @@
 
         <!-- Article Image -->
         <img data-testid="article-image" class="img-fluid w-100 rounded article-detail-img" src="
-            {% if 'placeholder' in article.featured_image.url %}
-                https://codeinstitute.s3.amazonaws.com/fullstack/blog/default.jpg
-            {% else %}
-                {{ article.featured_image.url }}
-            {% endif %}" alt="{article.title}">
+                {% if 'placeholder' in article.featured_image.url %}
+                    https://codeinstitute.s3.amazonaws.com/fullstack/blog/default.jpg
+                {% else %}
+                    {{ article.featured_image.url }}
+                {% endif %}" alt="{article.title}">
 
         <!-- Article Content -->
         <div class="mt-4 fs-5 article-body" data-testid="article-body">
@@ -41,10 +42,11 @@
         <!-- Link to original article if applicable -->
         {% if article.original_article %}
         <p class="mt-5">
-            Original article can be found at <a target="_blank" href="{{article.original_article}}">{{article.original_article}}</a>
+            Original article can be found at <a target="_blank"
+                href="{{article.original_article}}">{{article.original_article}}</a>
         </p>
         {% endif %}
-        
+
         <hr class="my-5" />
 
         <!-- Like Button -->
