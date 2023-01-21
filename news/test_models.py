@@ -2,9 +2,15 @@ from django.test import TestCase
 from .views import Article, Comment
 from django.contrib.auth.models import User
 
+
 class TestArticleModel(TestCase):
+    """
+    Tests for the Article Model
+    """
     def setUp(self):
+        # Create Test User
         self.user = User.objects.create_user(username='testuser', password='12345')
+        # Create Test Article
         self.article = Article.objects.create(
             title="Test Article", 
             author=self.user,
@@ -38,15 +44,22 @@ class TestArticleModel(TestCase):
         article = Article.objects.get(title="Test Article")
         self.assertEqual(str(article), "Test Article")
 
+
 class TestCommentModel(TestCase):
+    """
+    Tests for the Comment Model
+    """
     def setUp(self):
+        # Create Test User
         self.user = User.objects.create_user(username='testuser', password='12345')
+        # Create Test Article
         self.article = Article.objects.create(
             title="Test Article", 
             author=self.user,
             content="Test Content",
             location="Test Environment"
             )
+        # Create Test Comment
         self.comment = Comment.objects.create(
             article=self.article,
             author=self.user,

@@ -3,7 +3,9 @@ from .forms import CommentForm
 
 
 class TestCommentForm(TestCase):
-
+    """
+    Tests for the "Add Comment Form"
+    """
     def test_comment_content_is_required(self):
         form = CommentForm({'content': ''})
         self.assertFalse(form.is_valid())
