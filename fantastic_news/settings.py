@@ -113,6 +113,11 @@ if "test" in sys.argv:
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": "mydatabase",
     }
+
+if "ENV" in os.environ and os.environ["ENV"] == "TEST":
+    print("Starting Django with test database.")
+    DATABASES = {"default": dj_database_url.parse(os.environ.get("DATABASE_TEST_URL"))}
+
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 

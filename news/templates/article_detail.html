@@ -29,12 +29,12 @@
                     https://codeinstitute.s3.amazonaws.com/fullstack/blog/default.jpg
                 {% else %}
                     {{ article.featured_image.url }}
-                {% endif %}" alt="{article.title}">
+                {% endif %}" alt="{{article.title}}">
 
         <!-- Article Content -->
         <div class="mt-4 fs-5 article-body" data-testid="article-body">
             <p class="float-start m-0">
-                <span class="text-primary">{{article.location | upper}}</span> -&nbsp;
+                <span class="text-primary fw-bold">{{article.location | upper}}</span> -&nbsp;
             </p>
             {{article.content  | safe }}
         </div>

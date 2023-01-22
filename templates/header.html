@@ -3,8 +3,8 @@
 
         <!-- Fantastic News logo -->
         <a class="navbar-brand brand-logo d-flex align-items-center" href="{% url 'news:home' %}">
-            <span data-testid="brand-name" class="ms-3 d-none d-sm-inline-block"><span
-                    class="text-primary">Fantastic</span> News</span>
+            <h1 data-testid="brand-name" class="ms-3 mb-0 d-none d-sm-inline-block"><span
+                    class="text-primary">Fantastic</span> News</h1>
         </a>
 
         <!-- Menu toggle for mobile screens -->
@@ -20,7 +20,7 @@
                 data-testid="search">
                 <div class="input-group me-0 me-lg-4">
                     <input class="form-control" type="search" name="keywords" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-primary" type="submit"><i
+                    <button class="btn btn-outline-primary" type="submit" title="Search"><i
                             class="fa-solid fa-magnifying-glass"></i></button>
                 </div>
             </form>

@@ -9,13 +9,13 @@
         <div class="col-12 col-sm-7 p-4 order-2 order-sm-1">
             <div class="card-body d-flex flex-column h-100">
                 <!-- Latest Article Title -->
-                <h4 class="card-title fw-bold" data-testid="latest-article-title">{{latest_article.title}}</h4>
+                <h3 class="card-title fw-bold h4" data-testid="latest-article-title">{{latest_article.title}}</h3>
                 <div class="flex-grow-1 w-100 w-sm-50 d-flex align-items-center">
                     <hr class="w-100">
                 </div>
                 <!-- Latest Article Excerpt -->
                 <div class="fs-6 card-text" data-testid="latest-article-body">
-                    <span class="text-primary">{{latest_article.location | upper}}</span> -
+                    <span class="text-primary fw-bold">{{latest_article.location | upper}}</span> -
                     {{latest_article.content  | safe | striptags |truncatechars_html:150}}
                 </div>
                 <div class="card-text mt-4 d-flex flex-column flex-md-row justify-content-between small text-secondary">
@@ -39,10 +39,10 @@
         <div class="col-12 col-sm-5 order-1 order-sm-2">
             {% if "placeholder" in latest_article.featured_image.url %}
             <img src="https://codeinstitute.s3.amazonaws.com/fullstack/blog/default.jpg"
-                class="img-fluid rounded-end h-100 article-img w-100 w-sm-auto" alt="{article.title}">
+                class="img-fluid rounded-end h-100 article-img w-100 w-sm-auto" alt="{{article.title}}">
             {% else %}
             <img src=" {{ latest_article.featured_image.url }}" 
-            class="img-fluid rounded-end h-100 article-img w-100 w-sm-auto" alt="{article.title}">
+            class="img-fluid rounded-end h-100 article-img w-100 w-sm-auto" alt="{{article.title}}">
             {% endif %}
         </div>
     </div>
@@ -68,7 +68,7 @@
                 {% endif %}
                 <!-- Secondary News Title -->
                 <div class="card-body px-0">
-                    <h5 class="card-title">{{ article.title }}</h5>
+                    <h3 class="card-title h5">{{ article.title }}</h3>
                 </div>
             </a>
             {% endfor %}
