@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Search Results</h2>
+<h2 class="mb-4">Search Results</h2>
 <!-- If search result is empty, display message -->
 {% if search_results.paginator.count == 0 %}
-<p class="fs-4 mt-4">No article found.</p>
+<p class="fs-4">No article found.</p>
 {% else %}
 <!-- Otherwise, load article list template with the search result -->
 {% include "article_list.html" with article_list=search_results %}

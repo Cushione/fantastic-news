@@ -56,7 +56,7 @@
     <script>
         // Hide messages automatically after 2.5 seconds.
         setTimeout(function () {
-            const alertList = document.querySelectorAll('.alert')
+            const alertList = document.querySelectorAll('#message-container .alert')
             const alerts = [...alertList].map(element => new bootstrap.Alert(element))
             for (const alert of alerts) {
                 alert.close()

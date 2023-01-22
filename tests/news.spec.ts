@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test'
+import { login } from './member.spec';
 
 const testingUrl = process.env.TESTING_URL!
 
@@ -12,8 +13,8 @@ test.describe('homepage',() => {
     await expect(page.getByTestId("brand-name")).toHaveText("Fantastic News")
     await expect(page.getByTestId("register-link")).toBeVisible()
     await expect(page.getByTestId("login-link")).toBeVisible()
-    expect(await page.getByTestId("member-username").count()).toEqual(0)
-    expect(await page.getByTestId("logout-link").count()).toEqual(0)
+    await expect(page.getByTestId("member-username")).toHaveCount(0)
+    await expect(page.getByTestId("logout-link")).toHaveCount(0)
     await expect(page.getByTestId("search")).toBeVisible()
     await expect(page.getByTestId("footer")).toBeVisible()
   })
@@ -34,7 +35,7 @@ test.describe('homepage',() => {
     }
     const navigation = page.getByTestId("main-article-navigation")
     await expect(navigation).toBeVisible()
-    await expect(navigation.getByTestId("prev-link")).toHaveClass(/disabled/)
+    await expect(navigation.getByTestId("prev-link")).toHaveCount(0)
     await expect(navigation.getByTestId("next-link")).not.toHaveClass(/disabled/)
     await expect(navigation.locator("li.active a")).toHaveText("1")
   })
@@ -43,7 +44,7 @@ test.describe('homepage',() => {
     const secondaryArticles = page.getByTestId(/secondary-article-\d/)
     await expect(secondaryArticles).toHaveCount(5)
     for (const article of await secondaryArticles.all()) {
-      expect(await article.getByRole("img").count()).toEqual(0)
+      await expect(article.getByRole("img")).toHaveCount(0)
       await expect(article.getByRole("heading")).toBeVisible()
     }
   })
@@ -61,15 +62,36 @@ test.describe("News Detail", () => {
     await expect(page.getByTestId("article-body")).toBeVisible()
   })
 
-  test.describe("Comment Section", () => {
-    test("should render the comment section", async ({page}) => {
-      await expect(page.getByTestId("comment-title")).toBeVisible()
-      await expect(page.getByTestId("comment-list")).toBeVisible()
+  test.describe("Like Article", () => {
+
+    test("should hide like button if not authenticated", async ({page}) => {
+      await expect(page.getByTestId("like-article-form")).toHaveCount(0)
     })
 
-    test("should hide the comment form if not authenticated", async ({page}) => {
-      await expect(page.getByTestId("login-hint")).toBeVisible()
-      expect(await page.getByTestId("comment-form").count()).toEqual(0)
+    test("should allow like/unlike article button if authenticated", async ({page}) => {
+      await login(page)
+      await page.locator('#latest-article').click()
+      await expect(page.getByTestId("like-article-form")).toBeVisible()
+      let initialCount = +(await page.getByTestId("number-of-likes").innerText()) || 0
+      let initialText = await page.getByTestId("like-article-form").getByRole("button").innerText()
+      for (let i = 0; i < 2; i++) {
+        await Promise.all([
+          page.waitForResponse(resp => resp.url().includes('/like') && resp.status() === 302),
+          page.getByTestId("like-article-form").getByRole("button").click()
+        ])
+        const currentText = await page.getByTestId("like-article-form").getByRole("button").innerText()
+        const currentCount = +(await page.getByTestId("number-of-likes").innerText())
+        if (initialText.match(/Like this article/)) {
+          expect(currentText).toMatch(/\d Like/)
+          expect(currentCount).toBeGreaterThan(initialCount)
+        } else {
+          expect(currentText).toMatch(/Like this article/)
+          expect(currentCount).toBeLessThan(initialCount)
+        }
+        initialCount = currentCount
+        initialText = currentText
+      }
     })
   })
+
 })

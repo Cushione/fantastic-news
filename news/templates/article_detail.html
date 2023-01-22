@@ -12,12 +12,12 @@
             <div>
                 <!-- Number Of Likes -->
                 {% if article.number_of_likes > 0 %}
-                <span><i class="fa-solid fa-heart"></i>
+                <span data-testid="number-of-likes"><i class="fa-solid fa-heart"></i>
                     {{article.number_of_likes}}</span>
                 {% endif %}
                 <!-- Number Of Comments -->
                 {% if article.number_of_comments > 0 %}
-                <span class="mx-3"><i class="fa-solid fa-message"></i>
+                <span class="mx-3" data-testid="number-of-comments"><i class="fa-solid fa-message"></i>
                     {{article.number_of_comments}}</span>
                 {% endif %}
             </div>
@@ -51,7 +51,7 @@
 
         <!-- Like Button -->
         {% if user.is_authenticated %}
-        <form class="d-inline" action="{% url 'news:article_like' article.slug %}" method="POST">
+        <form class="d-inline" action="{% url 'news:article_like' article.slug %}" method="POST" data-testid="like-article-form">
             {% csrf_token %}
             <button type="submit" name="blogpost_id" value="{{article.slug}}" class="btn btn-light f-4 btn-lg">
                 <i class="{% if liked %}fas{% else %}far{% endif %} fa-heart text-primary me-2"></i>
