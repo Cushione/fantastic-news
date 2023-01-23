@@ -67,7 +67,7 @@ In this project, I have also implemented tests with Django and Playwright.
 
 ![Navigation Bar Authenticated](assets/docs/features/navigation-bar-desktop-authenticated.png)
 - After logging in, the links on the right side are replaced by the username and a log-out button.
-- The user can always see if they are logged in by his username being clearly displayed. 
+- The user can always see if they are logged in by their username being displayed. 
 
 ## Search 
 ![Search Results](assets/docs/features/search-results.png)
@@ -80,14 +80,14 @@ In this project, I have also implemented tests with Django and Playwright.
 ## Latest News
 ![Latest Article](assets/docs/features/latest-news.png)
 - At the top of the homepage, the user can find the latest published article. 
-- The article is full-width, shows the title, cover image and a small preview of the content.
+- The article is full-width and shows the title, cover image, and a small preview of the content.
 - It also shows the date and time of publishing and the number of likes and comments, if there are any.
-- The latest article stands out compared to the rest of the articles on the page, since the latest news are the most interesting for new and returning users.
+- The latest article stands out compared to the rest of the articles on the page since the latest news is the most interesting for new and returning users.
 - When a new story is posted, the previous latest article moves down into the main article list.
 
 ## Main Article List
 ![Main Article List](assets/docs/features/main-article-list.png)
-- Underneath the latest news, taking about two thirds of the width, lies the main article list.
+- Underneath the latest news, taking about two-thirds of the width, lies the main article list.
 - The list is paginated, showing four articles on every page.
 - Every article in the list shows a title and cover image of the article.
 - It also shows the date and time of publishing and the number of likes and comments, if there are any.
@@ -102,11 +102,11 @@ In this project, I have also implemented tests with Django and Playwright.
 ## Article Detail
 ![Article Detail](assets/docs/features/article-detail.png)
 - Every article on the homepage can be opened by clicking on it.
-- At the top, the detail page shows the title, date and time of publishing and the number of likes and comments.
+- At the top, the detail page shows the title, date and time of publishing, and the number of likes and comments.
 - Underneath, the cover image and content of the article are displayed.
 
 ![Original Article](assets/docs/features/original-article.png)
-- Bellow the content, a link to the original article is shown, if applicable, which opens in a new tab.
+- Below the content, a link to the original article is shown, if applicable, which opens in a new tab.
 
 ## Likes
 ![Like Button](assets/docs/features/like-button.png)
@@ -130,19 +130,20 @@ In this project, I have also implemented tests with Django and Playwright.
 - The user can edit their comment by clicking the edit button in the top right corner.
 - The comment turns into an inline form allowing the user to edit the comment.
 - To save the changes, the user can click on the save button.
+- A message notifies the user about the successful edit.
 - If the user changes their mind, and does not want to edit the comment any longer, they can drop the changes by clicking the cancel button.
 
 ### Delete Comment
-![Deleted Comment](assets/docs/features/deleted-comment.png)
-- The user can remove their comments from the conversation.
+- The user can remove their comments permanently from the conversation.
 - To delete a comment, the user can click on the delete button in the top right corner of the comment.
-- Before deleting, the user has to confirm their decision, otherwise the comment will not be deleted.
+- Before deleting, the user has to confirm their decision, otherwise, the comment will not be deleted.
+- A message notifies the user about the successful deletion.
 
 ## Register
 ![Register Form](assets/docs/features/register.png)
-- If a user wants to use the features reserved to members of the website, such as commenting and liking, they have to register.
+- If a user wants to use the features reserved for members of the website, such as commenting and liking, they have to register.
 - The user can reach the registration page by the link in the navigation bar or through links available throughout the website.
-- To become a member, the user has to enter a username, their first name, email and a password.
+- To become a member, the user has to enter a username, first name, email, and password.
 - If the provided data is valid, the user is automatically logged in and redirected to the page they were on before.
 
 ### Validation
@@ -153,7 +154,7 @@ In this project, I have also implemented tests with Django and Playwright.
 
 ## Login
 ![Login Form](assets/docs/features/login.png)
-- If an unauthenticated member wants to use the features reserved to members of the website such as commenting and liking, they have to log in.
+- If an unauthenticated member wants to use the features reserved for members of the website such as commenting and liking, they have to log in.
 - The member can reach the login page by the link in the navigation bar or through links available throughout the website.
 - To log in, the user has to enter their username and password.
 - If the username and/or password are incorrect, the form is loaded again, informing the user about the error.
@@ -165,26 +166,26 @@ In this project, I have also implemented tests with Django and Playwright.
 ## Additional Features
 Features that could be implemented in the future:
 - Allow users to reply directly to another comment. Replies would then be shown directly underneath that comment as a conversation.
-- Allow users to upvote/downvote comments and show most popular comment on top instead of the most recent.
+- Allow users to upvote/downvote comments and show the most popular comment on top instead of the most recent.
 - Add news categories.
 
 # Colors
-The website uses only one green color next to the standard Bootstrap success, warning and error colors: #14805a  
+The website uses only one green color next to the standard Bootstrap success, warning, and error colors: #14805a  
 The color is used as an accent color.
 
 # Testing
 In this project, I used two types of testing: Manual explorative testing and semi-automated tests.
 
 ## Manual Testing
-- Throughout the development process, I manually tested every page and features exhaustively. 
-- When I finished creating my MVP, I shared the website with multiple users to confirm it's functionality and to get feedback on their experience.
+- Throughout the development process, I manually tested every page and feature exhaustively. 
+- When I finished creating my MVP, I shared the website with multiple users to confirm its functionality and to get feedback on their experience.
 
 ## Automated Testing
-- For all my views, models and forms, I implemented tests with the Django framework.
+- For all my views, models, and forms, I implemented tests with the Django framework.
 - For all my pages and features, I created semi-automated end-to-end tests with the [Playwright framework](https://playwright.dev/).
   - The tests cover the functionality of all pages and the elements within.
   - The tests use a separate test database instead of the production database.
-  - The test are run in three different types of browsers: Chromium, Firefox and WebKit.
+  - The tests are run in three different types of browsers: Chromium, Firefox, and WebKit.
 
 ### Run Playwright Test
 - To install and setup Playwright, I ran the command `npm init playwright@latest --yes -- --quiet --browser=chromium --browser=firefox --browser=webkit --gha --install-deps` and `npm install dotenv`.
@@ -224,7 +225,7 @@ There are no known unfixed bugs.
 
 ### Fixed Bugs
 - When posting a comment, if the user pressed the submit button multiple times, a new comment was added for each click.
-  - Fixed by adding an event listener to every form, that prevents multiple submissions.
+  - Fixed by adding an event listener to every form, which prevents multiple submissions.
 
 ## Development process
 While I was working on this project, I tried to follow an agile development approach as much as possible. 
@@ -233,17 +234,17 @@ While I was working on this project, I tried to follow an agile development appr
 The first step in my development process was to plan the website thoroughly:
 - At first, I created a simple class diagram that shows the models I was planning on implementing, with their properties and relations  
   [Link to the class diagram](https://drive.google.com/file/d/1Gynq42b4jLbzk4lR4uc5PLfOzMI7UWk4/view?usp=share_link)
-- Next, I thought about the User Interface and its layout. I created simple [wireframes](assets/docs/wireframes.png) for the homepage and the article detail page. 
+- Next, I thought about the User Interface and its layout. I created simple [wireframes](assets/docs/wireframes.png) for the homepage, and the article detail page. 
 For the registration and login page I was planning to use the default layout, so I omitted wireframes for those pages.
 - Lastly, I wrote the majority of my user stories and tasks in my [GitHub Project](https://github.com/Cushione/fantastic-news/projects) 
 
 ### Agile Development
 - In my GitHub Project, all my issues are separated into two milestones: "MVP" and "Additional Features".
 - Issues not necessary for my project were added to the "Additional Features" milestone. Those tickets were only to be worked on when all the "MVP" tickets were done and I still had time left.
-- Each issue was then categorized into user stories or technical task by adding the corresponding label.
+- Each issue was then categorized into user stories or technical tasks by adding the corresponding label.
 - All the issues were then grouped into various epics by adding an "EPIC: _name_" label.
 - When I was working on the project, I chose one issue to work on from the "Todo" column of the MVP board and moved it into the "In Progress" column.
-- After I finished the issue by fulfilling all the acceptance criterias, I closed the issue which moved it automatically into the "Done" Column.
+- After I finished the issue by fulfilling all the acceptance criteria, I closed the issue which moved it automatically into the "Done" Column.
 
 ### Git
 - I started the program and repository by using the [gitpod python template](https://github.com/Code-Institute-Org/python-essentials-template) provided by the Code Insitute.
@@ -261,9 +262,9 @@ For the registration and login page I was planning to use the default layout, so
 The site was deployed using Heroku.
 
 ## Deployment Preparation
-Before the deployment, following steps were taken to prepare the application for the deployment on Heroku:
+Before the deployment, the following steps were taken to prepare the application for the deployment on Heroku:
 - The setting DEBUG in the settings.py was set to FALSE.
-- All the dependency were stored in the requirements.txt file with the command `pip3 freeze --local > requirements.txt`.
+- All the dependencies were stored in the requirements.txt file with the command `pip3 freeze --local > requirements.txt`.
 - The start command for the application `web: gunicorn newsbox86.wsgi` was stored in a Procfile.
 
 ## Setup
@@ -271,7 +272,7 @@ The steps to deploy an app to Heroku are as follows:
 - Create a new App from the Heroku dashboard.
 - Enter a name for the app and select a region, then click on "Create App".
 - On the page of the app that opens, go to the "Settings" tab.
-- In Settings add the necessary config vars, for this project I added my cloudinary url, database url and django secret key
+- In Settings add the necessary config vars, for this project I added my cloudinary URL, database URL, and django secret key
 - Next, add the buildpack "Heroku/Python".
 - Afterwards, go to the "Deploy" tab on the app page.
 - In the "Deployment method" section, select "GitHub" and follow the steps to connect Heroku with GitHub.
@@ -302,7 +303,7 @@ The live link can be found here: [Fantastic News](https://fantastic-news.herokua
 - [cloudinary_storage and cloudinary](https://pypi.org/project/django-cloudinary-storage/) was used as the image storage
 
 ## Content and Media
-- All the article were copied from the following pages:
+- All the articles were copied from the following pages:
   - [The Onion](https://www.theonion.com/)
   - [The Babylon Bee](https://babylonbee.com/)
   - [The Daily Mash](https://www.thedailymash.co.uk/)
