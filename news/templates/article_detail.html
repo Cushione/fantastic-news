@@ -102,13 +102,13 @@
         <!-- Comment List -->
         <div data-testid="comment-list">
             {% for comment in comments %}
-            <div class="card mb-3 {% if comment.deleted %}bg-light bg-gradient{% endif %}" id="comment-{{comment.id}}">
+            <div class="card mb-3" id="comment-{{comment.id}}">
                 <div class="card-body">
                     <!-- Comment Author -->
                     <h5 class="card-title fs-6">
                         {{comment.author}}
                         <!-- Comment Action Buttons -->
-                        {% if not comment.deleted and user.is_authenticated and user.id == comment.author.id %}
+                        {% if user.is_authenticated and user.id == comment.author.id %}
                         <span class="float-end action-buttons">
                             <button class="btn btn-light btn-sm comment-edit-btn"
                                 onclick="toggleEditForm({{comment.id}})">
@@ -125,11 +125,7 @@
                     <h6 class="card-subtitle mb-2 text-secondary small">{{comment.created_on}}</h6>
                     <!-- Comment Content -->
                     <p class="card-text comment-content">
-                        {% if comment.deleted %}
-                        This comment was deleted.
-                        {% else %}
                         {{comment.content}}
-                        {% endif %}
                     </p>
                 </div>
             </div>
