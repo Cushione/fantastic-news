@@ -28,11 +28,14 @@ test.describe('homepage',() => {
 
   test("should display main news list", async ({page}) => {
     const mainArticles = page.getByTestId(/main-article-\d/)
+    // Expect four main articles to be displayed
     await expect(mainArticles).toHaveCount(4)
+    // Expect every article to have a title and image
     for (const article of await mainArticles.all()) {
       await expect(article.getByRole("img")).toBeVisible()
       await expect(article.getByRole("heading")).toBeVisible()
     }
+    // Expect pagination controls to be displayed correctly
     const navigation = page.getByTestId("main-article-navigation")
     await expect(navigation).toBeVisible()
     await expect(navigation.getByTestId("prev-link")).toHaveCount(0)
@@ -42,7 +45,9 @@ test.describe('homepage',() => {
 
   test("should display secondary news list", async ({page}) => {
     const secondaryArticles = page.getByTestId(/secondary-article-\d/)
+    // Expect five secondary articles to be displayed
     await expect(secondaryArticles).toHaveCount(5)
+    // Expect every article to have a title and no image
     for (const article of await secondaryArticles.all()) {
       await expect(article.getByRole("img")).toHaveCount(0)
       await expect(article.getByRole("heading")).toBeVisible()
@@ -69,11 +74,14 @@ test.describe("News Detail", () => {
     })
 
     test("should allow like/unlike article button if authenticated", async ({page}) => {
+      // Login and go to latest article
       await login(page)
       await page.locator('#latest-article').click()
       await expect(page.getByTestId("like-article-form")).toBeVisible()
+      // Current like count and button text
       let initialCount = +(await page.getByTestId("number-of-likes").innerText()) || 0
       let initialText = await page.getByTestId("like-article-form").getByRole("button").innerText()
+      // Click button twice, expect count and text to change each time
       for (let i = 0; i < 2; i++) {
         await Promise.all([
           page.waitForResponse(resp => resp.url().includes('/like') && resp.status() === 302),

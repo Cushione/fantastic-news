@@ -8,10 +8,13 @@ test.describe("Article Search", () => {
     })
 
     test("should show search results if articles found",async ({page}) => {
+      // Fill search form and submit
       await page.getByTestId("search").locator("input").fill("Test")
       await page.getByTestId("search").locator("button").click()
+      // Expect search results to load with 10 results
       await expect(page).toHaveURL(testingUrl + "/search-results/?keywords=Test")
       await expect(page.locator(".card")).toHaveCount(10)
+      // Expect pagination controls to be displayed correctly
       const navigation = page.getByTestId("article-navigation")
       await expect(navigation).toBeVisible()
       await expect(navigation.getByTestId("prev-link")).toHaveCount(0)
