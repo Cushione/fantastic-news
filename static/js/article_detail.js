@@ -18,12 +18,15 @@ function deleteComment(commentId) {
   })
     .then((response) => {
       if (response.ok) {
-        // If request was successful, overwrite comment content and remove buttons
-        const comment = document.getElementById("comment-" + commentId);
-        const content = comment.getElementsByClassName("comment-content")[0];
-        content.innerHTML = "This comment was deleted.";
-        const buttons = comment.getElementsByClassName("action-buttons")[0];
-        buttons.innerHTML = "";
+        // If request was successful, delete comment and add message
+        document.getElementById("comment-" + commentId).remove()
+        document.getElementById("message-container").innerHTML = `
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            Your comment was deleted.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        `
+        hideMessages()
       }
     })
     .catch(() => {
@@ -88,6 +91,13 @@ function saveComment(commentId) {
           .getElementsByClassName("comment-content")[0];
         content.dataset.content = newContent;
         toggleEditForm(commentId);
+        document.getElementById("message-container").innerHTML = `
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            Your comment was updated.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        `
+        hideMessages()
       }
     })
     .catch(() => {

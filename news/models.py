@@ -79,7 +79,6 @@ class Comment(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     content = models.TextField(max_length=1000)
-    deleted = models.BooleanField(default=False)
 
     class Meta:
         ordering = ["-created_on"]

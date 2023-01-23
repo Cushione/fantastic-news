@@ -109,9 +109,8 @@ class ArticleComments(View):
         comment = get_object_or_404(Comment, id=comment_id)
         # Only allow the owner of the comment to delete
         if comment.author == request.user:
-            # Set deleted flag
-            comment.deleted = True
-            comment.save()
+            # Delete comment
+            comment.delete()
             # Return success response
             return HttpResponse()
         messages.error(request, "You are not allowed to delete this comment.")

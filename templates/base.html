@@ -54,14 +54,17 @@
     {% endblock scripts%}
 
     <script>
-        // Hide messages automatically after 2.5 seconds.
-        setTimeout(function () {
-            const alertList = document.querySelectorAll('#message-container .alert')
-            const alerts = [...alertList].map(element => new bootstrap.Alert(element))
-            for (const alert of alerts) {
-                alert.close()
-            }
-        }, 2500);
+        function hideMessages() {
+            // Hide messages automatically after 2.5 seconds.
+            setTimeout(function () {
+                const alertList = document.querySelectorAll('#message-container .alert')
+                const alerts = [...alertList].map(element => new bootstrap.Alert(element))
+                for (const alert of alerts) {
+                    alert.close()
+                }
+            }, 2500);
+        }
+        hideMessages()
         // Prevent forms from being submitted multiple times
         document.querySelectorAll('form').forEach(form => {
             form.addEventListener('submit', (e) => {

@@ -45,7 +45,8 @@ test.describe("Comment Section", () => {
       await expect(page).toHaveURL(url)
       // Expect the number of comments to have increased
       expect(await page.getByTestId("comment-list").locator(".card").count()).toBeGreaterThan(count)
-      // Expect top comment to be the comment just created
+      // Expect top comment to be the comment just created and message to be shown
+      await expect(page.locator(".alert-success", {hasText: "Comment added successfully."})).toBeVisible()
       const comment = page.getByTestId("comment-list").locator(".card").first()
       expect ((await comment.locator(".card-title").innerText()).trim()).toContain("test_user")
       expect ((await comment.locator(".comment-content").innerText()).trim()).toContain("Test Comment")
@@ -65,7 +66,8 @@ test.describe("Comment Section", () => {
       await comment.getByRole("textbox").clear()
       await comment.getByRole("textbox").fill("Changed Comment")
       await comment.locator(".comment-save-btn").click()
-      // Expect form to be hidden and the content to have changed
+      // Expect form to be hidden, the content to have changed, and message to be shown
+      await expect(page.locator(".alert-success", {hasText: "Your comment was updated."})).toBeVisible()
       await expect(comment.getByRole("textbox")).toHaveCount(0)
       expect ((await comment.locator(".comment-content").innerText()).trim()).toContain("Changed Comment")
     })
@@ -79,15 +81,19 @@ test.describe("Comment Section", () => {
         await writeComment(page, "Test Comment")
         // Expect top comment to have action buttons
         const comment = page.getByTestId("comment-list").locator(".card").first()
+        const commentId = await comment.getAttribute("id")
+        // Check that comment can be found by id
+        expect(commentId).toBeTruthy()
+        await expect(page.locator(`#${commentId!}`)).toBeVisible()
         await expect(comment.locator(".action-buttons")).toBeVisible()
         // Click delete button and wait for response
         await Promise.all([
           page.waitForResponse(resp => resp.url().includes('/comments') && resp.status() === 200),
           comment.locator(".action-buttons .comment-delete-btn").click()
         ])
-        // Expect action buttons to be hidden and the comment to be deleted
-        await expect(comment.locator(".action-buttons .comment-delete-btn")).toHaveCount(0)
-        expect ((await comment.locator(".comment-content").innerText()).trim()).toContain("This comment was deleted.")
+        // Expect action buttons to be hidden, the comment to be deleted, and message to be shown
+        await expect(page.locator(".alert-success", {hasText: "Your comment was deleted."})).toBeVisible()
+        await expect(page.locator(`#${commentId!}`)).toHaveCount(0)
       })
 
       test("should not delete comment if cancelled", async ({page}) => {
