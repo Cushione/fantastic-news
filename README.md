@@ -6,6 +6,8 @@ The sole purpose of this website is to demonstrate my coding knowledge and to en
 # Live Page
 [https://fantastic-news.herokuapp.com/](https://fantastic-news.herokuapp.com/)
 
+![Website Mockup](assets/docs/website-mockup.png)
+
 # Objective
 The objective of this project is to present my skills in Django, Python, Object Oriented Programming, 
 and other standard programming constructs such as flow control, iteration, selection, functions, and data structures.
