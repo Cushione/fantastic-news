@@ -235,7 +235,7 @@ There were no errors found in the javascript using the JS Hint Validator.
 There were no accessibility errors found using the [WAVE WebAIM web accessibility evaluation tool](https://wave.webaim.org/report#/https://fantastic-news.herokuapp.com/) 
 
 ## Lighthouse Report
-![Lighthouse Report](assets/docs/lighthouse-report.png)
+![Lighthouse Report](assets/docs/lighthouse-report.png)  
 The website was tested with Google Lighthouse. The performance could be improved slightly by adding image transformations to the Cloudinary image upload in order to reduce the resolution and size.
 
 ## Bugs
@@ -244,6 +244,8 @@ There are no known unfixed bugs.
 ### Fixed Bugs
 - When posting a comment, if the user pressed the submit button multiple times, a new comment was added for each click.
   - Fixed by adding an event listener to every form, which prevents multiple submissions.
+- When adding, editing or deleting a comment while unauthenticated, the user was brought to the login page as intended. The url of the request was stored in the login url. After logging in, Django attempted to open the stored url, but instead of POST or DELETE request, a GET request was sent. The views did not have a GET handler so the user received a 405 Error. 
+  - Fixed by adding GET request handlers that redirect to the Article Detail page of the comment in the request.
 
 ## Development process
 While I was working on this project, I tried to follow an agile development approach as much as possible. 
