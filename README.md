@@ -190,18 +190,29 @@ In this project, I used two types of testing: Manual explorative testing and sem
   - The tests use a separate test database instead of the production database.
   - The tests are run in three different types of browsers: Chromium, Firefox, and WebKit.
 
-### Run Playwright Test
+### Playwright Tests
 - To install and setup Playwright, I ran the command `npm init playwright@latest --yes -- --quiet --browser=chromium --browser=firefox --browser=webkit --gha --install-deps` and `npm install dotenv`.
 - Afterwards, I started the django app in my test environment with the command `ENV=TEST python3 manage.py runserver`.
 This starts the project with an alternative test database. 
 - When django started, I made the port of the app public. To do that, I went to the "PORTS" tab in Gitpod and clicked on the lock in the row of the django port, port 8000.
 - Then, I started the tests with `npx playwright test`.
 
+### Django Tests
+- The Django framework includes a testing library, so no further setup is necessary.
+- I started the Django tests with the command `python3 manage.py test`.
+
 ### Results
-Test results with `npx playwright test`: All 63 tests passed (21 tests in three browsers).  
+Test results from the Playwright tests: All 63 tests passed (21 tests in three browsers).  
+
 ![Playwright Test Results Terminal](assets/docs/automated_tests_result_cmd.png)  
 
 [Visual results with Playwright VSCode extension](assets/docs/automated_tests_result.png)
+
+---
+
+Test results from the Django tests: All 25 tests passed.  
+
+![Django Test Results](assets/docs//django-tests.png)
 
 ## Validation
 ### Python
