@@ -256,10 +256,10 @@ The first step in my development process was to plan the website thoroughly:
   [Link to the class diagram](https://drive.google.com/file/d/1Gynq42b4jLbzk4lR4uc5PLfOzMI7UWk4/view?usp=share_link)
 - Next, I thought about the User Interface and its layout. I created simple [wireframes](assets/docs/wireframes.png) for the homepage, and the article detail page. 
 For the registration and login page I was planning to use the default layout, so I omitted wireframes for those pages.
-- Lastly, I wrote the majority of my user stories and tasks in my [GitHub Project](https://github.com/Cushione/fantastic-news/projects) 
+- Lastly, I wrote the majority of my user stories and tasks in my [GitHub Project](https://github.com/users/Cushione/projects/3) 
 
 ### Agile Development
-- In my GitHub Project, all my issues are separated into two milestones: "MVP" and "Additional Features".
+- In my [GitHub Project](https://github.com/users/Cushione/projects/3), all my issues are separated into two milestones: "MVP" and "Additional Features".
 - Issues not necessary for my project were added to the "Additional Features" milestone. Those tickets were only to be worked on when all the "MVP" tickets were done and I still had time left.
 - Each issue was then categorized into user stories or technical tasks by adding the corresponding label.
 - All the issues were then grouped into various epics by adding an "EPIC: _name_" label.
