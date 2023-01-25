@@ -179,7 +179,7 @@ The color is used as an accent color.
 In this project, I used two types of testing: Manual explorative testing and semi-automated tests.
 
 ## Manual Testing
-- Throughout the development process, I manually tested every page and feature exhaustively. 
+- Throughout the development process, I manually tested every page and feature exhaustively.   
 [List of manual tests](manual_testing.md)
 - When I finished creating my MVP, I shared the website with multiple users to confirm its functionality and to get feedback on their experience.
 
@@ -204,7 +204,7 @@ This starts the project with an alternative test database.
 ### Results
 Test results from the Playwright tests: All 63 tests passed (21 tests in three browsers).  
 
-![Playwright Test Results Terminal](assets/docs/automated_tests_result_cmd.png)  
+![Playwright Test Results Terminal](assets/docs/automated_tests_result_cmd.png)
 
 [Visual results with Playwright VSCode extension](assets/docs/automated_tests_result.png)
 
@@ -231,8 +231,12 @@ There were no errors found in the stylesheet using the W3C CSS Validator.
 ![JS Validation](assets/docs/js-hint-validator.png)  
 There were no errors found in the javascript using the JS Hint Validator.
 
-### Accessibility
+## Accessibility
 There were no accessibility errors found using the [WAVE WebAIM web accessibility evaluation tool](https://wave.webaim.org/report#/https://fantastic-news.herokuapp.com/) 
+
+## Lighthouse Report
+![Lighthouse Report](assets/docs/lighthouse-report.png)
+The website was tested with Google Lighthouse. The performance could be improved slightly by adding image transformations to the Cloudinary image upload in order to reduce the resolution and size.
 
 ## Bugs
 There are no known unfixed bugs.
