@@ -62,7 +62,7 @@ class Article(models.Model):
         """
         Returns the number of existing comments
         """
-        return self.comments.filter(deleted=False).count()
+        return self.comments.count()
 
 
 class Comment(models.Model):

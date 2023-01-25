@@ -127,8 +127,8 @@ class TestMemberFeaturesAsAuthenticated(TestCase):
             reverse("news:article_comments", args=[self.comment.id])
         )
         self.assertEqual(response.status_code, 200)
-        comment = Comment.objects.get(id=self.comment.id)
-        self.assertEqual(comment.deleted, True)
+        with self.assertRaises(Comment.DoesNotExist):
+            comment = Comment.objects.get(id=self.comment.id)
 
 
 class TestMemberFeaturesAsNotAuthenticated(TestCase):
@@ -196,8 +196,8 @@ class TestMemberFeaturesAsNotAuthenticated(TestCase):
         self.assertRedirects(
             response, reverse("member:login") + f"?next={next}"
         )
-        comment = Comment.objects.get(id=self.comment.id)
-        self.assertEqual(comment.deleted, False)
+        comment = Comment.objects.filter(id=self.comment.id)
+        self.assertEqual(comment.exists(), True)
 
 
 class TestCommentsAsNotOwner(TestCase):
@@ -247,5 +247,5 @@ class TestCommentsAsNotOwner(TestCase):
             reverse("news:article_comments", args=[self.comment.id])
         )
         self.assertEqual(response.status_code, 403)
-        comment = Comment.objects.get(id=self.comment.id)
-        self.assertEqual(comment.deleted, False)
+        comment = Comment.objects.filter(id=self.comment.id)
+        self.assertEqual(comment.exists(), True)

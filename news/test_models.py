@@ -47,28 +47,3 @@ class TestArticleModel(TestCase):
         article = Article.objects.get(title="Test Article")
         self.assertEqual(str(article), "Test Article")
 
-
-class TestCommentModel(TestCase):
-    """
-    Tests for the Comment Model
-    """
-
-    def setUp(self):
-        # Create Test User
-        self.user = User.objects.create_user(
-            username="testuser", password="12345"
-        )
-        # Create Test Article
-        self.article = Article.objects.create(
-            title="Test Article",
-            author=self.user,
-            content="Test Content",
-            location="Test Environment",
-        )
-        # Create Test Comment
-        self.comment = Comment.objects.create(
-            article=self.article, author=self.user, content="Test Comment"
-        )
-
-    def test_deleted_defaults_to_false(self):
-        self.assertFalse(self.comment.deleted)
