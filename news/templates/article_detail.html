@@ -1,4 +1,9 @@
 {% extends "base.html" %}
+
+{% block title %}
+Fantastic News - {{article.title | truncatechars:20}}
+{% endblock title %}
+
 {% load static %}
 {% block content %}
 <!-- Article Detail Section -->

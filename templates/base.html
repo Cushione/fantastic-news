@@ -4,8 +4,17 @@
 <html lang="en">
 
 <head>
-    <title>Fantastic News</title>
+    <title>
+    {% block title %}
+    <!-- Title Goes here -->
+    {% endblock title %}
+    </title>    
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="description" content="Fantastic News is an imaginary news site that brings you the most untrustworthy stories in the world. ">
+    <meta name="keywords" content="entertainment, news, satirical, stories">
+    <meta name="author" content="Kristyna Maulerova">
+
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Fantastic News" />
     <meta property="og:url" content="https://fantastic-news.herokuapp.com/" />
