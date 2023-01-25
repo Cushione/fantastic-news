@@ -17,7 +17,9 @@ function deleteComment(commentId) {
     mode: "same-origin",
   })
     .then((response) => {
-      if (response.ok) {
+      if (response.redirected) {
+        window.location.href = response.url;
+      } else if (response.ok) {
         // If request was successful, delete comment and add message
         document.getElementById("comment-" + commentId).remove()
         document.getElementById("message-container").innerHTML = `
@@ -83,7 +85,9 @@ function saveComment(commentId) {
     body: data,
   })
     .then((response) => {
-      if (response.ok) {
+      if (response.redirected) {
+        window.location.href = response.url;
+      } else if (response.ok) {
         // If request was successful, set content data attribute to the
         // new content and toggle form
         const content = document

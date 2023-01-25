@@ -132,6 +132,12 @@ class ArticleComments(View):
             return HttpResponseBadRequest()
         messages.error(request, "You are not allowed to delete this comment.")
         return HttpResponseForbidden()
+    
+    def get(self, request, comment_id, *args, **kwargs):
+        # Find specified comment or show error page if not found
+        comment = get_object_or_404(Comment, id=comment_id)
+        # Redirect to the article detail view
+        return redirect(reverse("news:article_detail", args=[comment.article.slug]))
 
 
 class AddArticleComment(View):
@@ -155,6 +161,10 @@ class AddArticleComment(View):
         else:
             # If invalid, set error message
             messages.error(request, "Invalid comment.")
+        # Redirect to the article detail view
+        return redirect(reverse("news:article_detail", args=[slug]))
+    
+    def get(self, request, slug, *args, **kwargs):
         # Redirect to the article detail view
         return redirect(reverse("news:article_detail", args=[slug]))
 
