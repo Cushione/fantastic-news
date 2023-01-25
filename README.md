@@ -180,6 +180,7 @@ In this project, I used two types of testing: Manual explorative testing and sem
 
 ## Manual Testing
 - Throughout the development process, I manually tested every page and feature exhaustively. 
+[List of manual tests](manual_testing.md)
 - When I finished creating my MVP, I shared the website with multiple users to confirm its functionality and to get feedback on their experience.
 
 ## Automated Testing
