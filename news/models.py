@@ -16,7 +16,9 @@ class Article(models.Model):
     title = models.CharField(max_length=300, unique=True)
     slug = models.SlugField(max_length=300, unique=True)
     author = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="news_articles"
+        User, on_delete=models.CASCADE, 
+        related_name="news_articles", 
+        limit_choices_to={'is_staff': True}
     )
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
