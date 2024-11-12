@@ -4,7 +4,7 @@ Fantastic News is an imaginary news site that brings you the most untrustworthy 
 The sole purpose of this website is to demonstrate my coding knowledge and to entertain, no stories should be taken seriously.
 
 # Live Page
-[https://fantastic-news.herokuapp.com/](https://fantastic-news.herokuapp.com/)
+[https://fantastic-news.1441990.xyz](https://fantastic-news.1441990.xyz)
 
 ![Website Mockup](assets/docs/website-mockup.png)
 
@@ -232,7 +232,7 @@ There were no errors found in the stylesheet using the W3C CSS Validator.
 There were no errors found in the javascript using the JS Hint Validator.
 
 ## Accessibility
-There were no accessibility errors found using the [WAVE WebAIM web accessibility evaluation tool](https://wave.webaim.org/report#/https://fantastic-news.herokuapp.com/) 
+There were no accessibility errors found using the [WAVE WebAIM web accessibility evaluation tool](https://wave.webaim.org/report#/https://fantastic-news.1441990.xyz) 
 
 ## Lighthouse Report
 ![Lighthouse Report](assets/docs/lighthouse-report.png)  
@@ -302,7 +302,7 @@ The steps to deploy an app to Heroku are as follows:
     - deploy a branch manually by selecting the branch and clicking the button "Deploy Branch" in the "Manual deploys" section.
 
 
-The live link can be found here: [Fantastic News](https://fantastic-news.herokuapp.com/)
+The live link can be found here: [Fantastic News](https://fantastic-news.1441990.xyz)
 
 # Credits
 
