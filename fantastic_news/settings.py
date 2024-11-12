@@ -34,7 +34,7 @@ DEBUG = False
 
 X_FRAME_OPTIONS = "SAMEORIGIN"
 
-ALLOWED_HOSTS = ["fantastic-news.herokuapp.com", "localhost"]
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(",")
 
 # Application definition
 
